@@ -1,0 +1,10 @@
+extends layout
+
+block content
+    p1 Create note
+    form
+        div.form-group
+            label.control-label(for = 'note') note
+            input.form-control(type = 'text', id = 'note')
+        div.form-group
+            button.btn.btn-primary(type = 'submit') create note
