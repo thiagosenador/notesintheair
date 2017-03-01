@@ -1,9 +1,14 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20');
+const session = require('express-session');
+const MemcachedStore = require('connect-memcached')(session);
+const config = require('./config');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -24,20 +29,44 @@ app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/bower_components', express.static(__dirname + '/bower_components'))
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', index);
 app.use('/users', users);
 app.use('/api', api)
 
+// auth config
+const sessionConfig = {
+  resave: false,
+  saveUninitialized: false,
+  secret: config.get('SECRET'),
+  signed: true
+};
+
+// In production use the App Engine Memcache instance to store session data, otherwise fallback to the default MemoryStore in development.
+if (config.get('NODE_ENV') === 'production') {
+  sessionConfig.store = new MemcachedStore({
+    hosts: [config.get('MEMCACHE_URL')]
+  });
+}
+
+app.use(session(sessionConfig));
+
+// OAuth2
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(require('./public/javascripts/libs/oauth2').router);
+
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -47,7 +76,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.listen(8080, function () {
+app.listen(config.get('PORT'), function () {
   console.log('app listening on port 8080!')
 })
 

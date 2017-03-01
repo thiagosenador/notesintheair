@@ -6,12 +6,12 @@ app.controller('NotesCtrl', function ($http, $scope) {
             url: '/api/create_note',
             method: 'POST',
             params: {
-                note: $scope.note
+                note: $scope.note,
+                lat: $scope.lat,
+                lng: $scope.lng
             }
-        }).success(function (data, status, header, config) {
-            alert('success');
-        }).error(function (data, status, header, config) {
-            alert('error')
+        }).then(function successCallback(response) {
+        }, function errorCallback(response) {
         });
     }
 })

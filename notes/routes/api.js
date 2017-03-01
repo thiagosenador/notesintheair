@@ -7,32 +7,21 @@ var datastore = require('@google-cloud/datastore')({
 
 
 router.post('/create_note', function (req, res, next) {
-  // Save data to Datastore. 
-  var blogPostData = {
-    title: 'How to make the perfect homemade pasta',
-    author: 'Andrew Chilton',
-    isDraft: true
+  var noteKey = datastore.key('Note');
+  
+  var note = {
+    content: req.query.note,
+    user: 'Thiago',
+    lat: req.query.lat,
+    lng: req.query.lng,
+    date: Date.now()
   };
 
-  var blogPostKey = datastore.key('BlogPost');
-
   datastore.save({
-    key: blogPostKey,
-    data: blogPostData
-  }, function (err) {
-    // `blogPostKey` has been updated with an ID so you can do more operations 
-    // with it, such as an update. 
-    blogPostData.isDraft = false;
-
-    datastore.save({
-      key: blogPostKey,
-      data: blogPostData
-    }, function (err) {
-      if (!err) {
-        // The blog post is now published! 
-      }
-    });
+    key: noteKey,
+    data: note
   });
+
   res.json({ message: 'thiago rocksssss!!!' })
 });
 
