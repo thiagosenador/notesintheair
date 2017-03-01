@@ -5,8 +5,8 @@ var datastore = require('@google-cloud/datastore')({
   keyFilename: './private/notesintheair_key.json'
 });
 
-/* GET home page. */
-router.get('/api', function (req, res, next) {
+
+router.post('/create_note', function (req, res, next) {
   // Save data to Datastore. 
   var blogPostData = {
     title: 'How to make the perfect homemade pasta',
