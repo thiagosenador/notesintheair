@@ -1,9 +1,10 @@
+'use strict';
+
 const express = require('express');
 const path = require('path');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const passport = require('passport');
 const session = require('express-session');
 const MemcachedStore = require('connect-memcached')(session);
 const config = require('./config');
@@ -12,10 +13,6 @@ var index = require('./routes/index');
 var api = require('./routes/api')
 
 var app = express();
-
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(require('./static/javascripts/login').router);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

@@ -1,21 +1,15 @@
 extends layout
 
 block content
-    script(src='javascripts/controllers/notes.controller.js')
-    script(src='http://maps.google.com/maps/api/js?key=AIzaSyAmhHjISB0MUEDdB5-5OCbfuxmXwqVibSE')
-    script(src='/javascripts/map.js')
-
-    div(ng-app)
+    div
         p1 login
 
-        form(class='form-signin', action='/login', method='POST')
-            input(type='text', name='username' class='form-control', placeholder='Email', required, autofocus)
-            input(type='password', name='password' class='form-control', placeholder='Password', required)
-            button(class='btn btn-lg btn-primary btn-block', type='submit') Sign in
-            span.clearfix
-        
-        p
-            a(href='/login/google', class='text-center') Sign in with google
-
-        p
-            a(href='/auth/login', class='text-center') Create an account
+        input(type='text', id='txtEmail' class='form-control', placeholder='Email', required, autofocus)
+        input(type='password', id='txtPassword' class='form-control', placeholder='Password', required)
+        button(class='btn btn-primary', id='btnLogin') Log in
+        button(class='btn', id='btnSignup') Sign up
+        button(class='btn', id='btnLoginGoogle') Log in with google
+        button(class='btn hide', id='btnLogout') Log out
+    
+    script(src='https://www.gstatic.com/firebasejs/3.7.0/firebase.js')
+    script(src='/javascripts/login.js')

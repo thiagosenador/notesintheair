@@ -1,3 +1,5 @@
+'use strict';
+
 var app = angular.module('notes', []);
 
 app.controller('NotesCtrl', function ($http, $scope) {
