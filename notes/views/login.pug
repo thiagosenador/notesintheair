@@ -1,15 +1,14 @@
 extends layout
 
 block content
-    div
+    script(src='javascripts/controllers/login.controller.js')
+
+    div(ng-app='notes' ng-controller='LoginCtrl')
         p1 login
 
-        input(type='text', id='txtEmail' class='form-control', placeholder='Email', required, autofocus)
-        input(type='password', id='txtPassword' class='form-control', placeholder='Password', required)
-        button(class='btn btn-primary', id='btnLogin') Log in
-        button(class='btn', id='btnSignup') Sign up
-        button(class='btn', id='btnLoginGoogle') Log in with google
-        button(class='btn hide', id='btnLogout') Log out
-    
-    script(src='https://www.gstatic.com/firebasejs/3.7.0/firebase.js')
-    script(src='/javascripts/login.js')
+        input(type='text', id='txtEmail' class='form-control', ng-model='email' placeholder='Email', required, autofocus)
+        input(type='password', id='txtPassword' class='form-control', ng-model='password' placeholder='Password', required)
+        button(class='btn btn-primary', id='btnLogin', ng-click='login()') Log in
+        button(class='btn', id='btnSignup', ng-click='signUp()') Sign up
+        button(class='btn', id='btnLoginGoogle', ng-click='loginGoogle()') Log in with google
+        button(class='btn', id='btnLogout', ng-click='logout()') Log out

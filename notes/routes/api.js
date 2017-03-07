@@ -1,20 +1,13 @@
 'use strict';
 
 const express = require('express');
-const datastore = require('../static/javascripts/datastore');
+const router = express.Router();
 
-var router = express.Router();
+const notes = require('../static/javascripts/model/notes');
 
-router.post('/create_note', function (req, res, next) {
-  var note = {
-    content: req.query.note,
-    user: 'Thiago',
-    lat: req.query.lat,
-    lng: req.query.lng,
-    date: Date.now()
-  };
-
-  datastore.save('Note', note);
-});
+/*
+ * Routes that can be accessed only by autheticated users
+ */
+router.post('/create_note', notes.createNote);
 
 module.exports = router;
