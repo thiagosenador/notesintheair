@@ -65,11 +65,11 @@ var loadMap = function (position) {
         infowindow.open(map, marker);
     });
 
-    var lat_field = $('#lat');
+    var lat_field = $('#latTxt');
     lat_field.val(myLatlng.lat);
     lat_field.trigger('input');
 
-    var lng_field = $('#lng');
+    var lng_field = $('#lngTxt');
     lng_field.val(myLatlng.lng);
     lng_field.trigger('input');
 

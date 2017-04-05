@@ -9,9 +9,6 @@ const session = require('express-session');
 const MemcachedStore = require('connect-memcached')(session);
 const config = require('./config');
 
-var index = require('./routes/index');
-var api = require('./routes/api')
-
 var app = express();
 
 // view engine setup
@@ -25,8 +22,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'static')));
 app.use('/bower_components', express.static(__dirname + '/bower_components'))
 
-app.use('/', index);
-app.use('/api', api)
+app.use('/', require('./routes/index'));
 
 // auth config
 const sessionConfig = {
@@ -44,6 +40,21 @@ if (config.get('NODE_ENV') === 'production') {
 }
 
 app.use(session(sessionConfig));
+
+app.all('/*', function (req, res, next) {
+  // CORS headers
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-type,Accept,X-Access-Token,X-Key');
+  if (req.method == 'OPTIONS') {
+    res.status(200).end();
+  } else {
+    next();
+  }
+});
+
+// Auth Middleware - This will check if the token is valid
+app.all('/api/*', [require('./static/javascripts/middleware/validateRequest')]);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

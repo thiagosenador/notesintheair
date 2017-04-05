@@ -3,14 +3,14 @@ const datastore = require('../datastore');
 var notes = {
     createNote: function (req, res) {
         var note = {
-            content: req.query.note,
+            content: req.body['note'],
             user: 'Thiago',
-            lat: req.query.lat,
-            lng: req.query.lng,
+            lat: req.body['lat'],
+            lng: req.body['lng'],
             date: Date.now()
         }
 
-        datastore.save('Note', note);
+        // datastore.save('Note', note);
     }
 };
 
