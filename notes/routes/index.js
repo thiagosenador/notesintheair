@@ -20,9 +20,10 @@ router.get('/create_note', function (req, res, next) {
   res.render('create_note');
 });
 
-/* APIs 
+/*
+ * APIs
  * Routes that can be accessed only by autheticated users
  */
-router.post('/api/create_note', notesService.createNote);
+router.post('/api/v1/create_note', notesService.createNote);
 
 module.exports = router;

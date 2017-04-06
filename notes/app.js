@@ -8,6 +8,14 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const MemcachedStore = require('connect-memcached')(session);
 const config = require('./config');
+const admin = require('firebase-admin');
+
+var serviceAccount = require("./private/notesintheair_key.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://notesintheair-160023.firebaseio.com"
+});
 
 var app = express();
 
@@ -54,7 +62,7 @@ app.all('/*', function (req, res, next) {
 });
 
 // Auth Middleware - This will check if the token is valid
-app.all('/api/*', [require('./static/javascripts/middleware/validateRequest')]);
+app.all('/api/v1/*', [require('./static/javascripts/middleware/validateRequest')]);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

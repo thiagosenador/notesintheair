@@ -17,8 +17,8 @@
             data['user'] = firebase.auth().currentUser.uid;
 
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', '/api/create_note', true);
-            xhr.setRequestHeader('Authorization', 'idToken');
+            xhr.open(createNoteForm.method, createNoteForm.action, true);
+            xhr.setRequestHeader('Authorization', idToken);
             xhr.setRequestHeader('Content-type', 'application/json');
             xhr.onreadystatechange = function () {
                 if (xhr.readyState == 4 && xhr.status == 200) {
