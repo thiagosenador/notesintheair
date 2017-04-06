@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const MemcachedStore = require('connect-memcached')(session);
 const config = require('./config');
+
 const admin = require('firebase-admin');
 
 var serviceAccount = require("./private/notesintheair_key.json");
@@ -30,8 +31,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'static')));
 app.use('/bower_components', express.static(__dirname + '/bower_components'))
 
-app.use('/', require('./routes/index'));
-
 // auth config
 const sessionConfig = {
   resave: false,
@@ -39,13 +38,6 @@ const sessionConfig = {
   secret: config.get('SECRET'),
   signed: true
 };
-
-// In production use the App Engine Memcache instance to store session data, otherwise fallback to the default MemoryStore in development.
-if (config.get('NODE_ENV') === 'production') {
-  sessionConfig.store = new MemcachedStore({
-    hosts: [config.get('MEMCACHE_URL')]
-  });
-}
 
 app.use(session(sessionConfig));
 
@@ -62,7 +54,9 @@ app.all('/*', function (req, res, next) {
 });
 
 // Auth Middleware - This will check if the token is valid
-app.all('/api/v1/*', [require('./static/javascripts/middleware/validateRequest')]);
+app.all('/*', [require('./static/javascripts/middleware/validateRequest')]);
+
+app.use('/', require('./routes/index'));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -3,7 +3,6 @@
     const noteTxt = document.getElementById('noteTxt');
     const latTxt = document.getElementById('latTxt');
     const lngTxt = document.getElementById('lngTxt');
-    const createNoteBtn = document.getElementById('createNoteBtn');
     const createNoteForm = document.getElementById('createNoteForm');
 
     createNoteForm.addEventListener('submit', e => {
@@ -17,16 +16,17 @@
             data['user'] = firebase.auth().currentUser.uid;
 
             var xhr = new XMLHttpRequest();
-            xhr.open(createNoteForm.method, createNoteForm.action, true);
-            xhr.setRequestHeader('Authorization', idToken);
-            xhr.setRequestHeader('Content-type', 'application/json');
+
             xhr.onreadystatechange = function () {
                 if (xhr.readyState == 4 && xhr.status == 200) {
                     var json = JSON.parse(xhr.responseText);
-                    console.log(json.email + ", " + json.password)
+                    console.log(json);
                 }
             }
 
+            xhr.open(createNoteForm.method, createNoteForm.action, true);
+            xhr.setRequestHeader('Authorization', idToken);
+            xhr.setRequestHeader('Content-type', 'application/json');
             xhr.send(JSON.stringify(data));
 
         }).catch(function (error) {
