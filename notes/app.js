@@ -6,8 +6,6 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const session = require('express-session');
-const MemcachedStore = require('connect-memcached')(session);
-const config = require('./config');
 
 const admin = require('firebase-admin');
 
@@ -30,16 +28,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'static')));
 app.use('/bower_components', express.static(__dirname + '/bower_components'))
-
-// auth config
-const sessionConfig = {
-  resave: false,
-  saveUninitialized: false,
-  secret: config.get('SECRET'),
-  signed: true
-};
-
-app.use(session(sessionConfig));
 
 app.all('/*', function (req, res, next) {
   // CORS headers
@@ -76,7 +64,7 @@ app.use(function (err, req, res, next) {
   res.render('error');
 });
 
-app.listen(config.get('PORT'), function () {
+app.listen('8080', function () {
   console.log('app listening on port 8080!')
 })
 

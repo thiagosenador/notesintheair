@@ -2,13 +2,18 @@ extends layout
 
 block content
     div
-        p1 login
+        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+            input.mdl-textfield__input(type='text' id='txtEmail' required autofocus)
+            label.mdl-textfield__label(for='txtEmail') email
+    div
+        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+            input.mdl-textfield__input(type='password' id='txtPassword' required autofocus)
+            label.mdl-textfield__label(for='txtPassword') password
 
-        input(type='text' id='txtEmail' class='form-control' placeholder='Email' required autofocus)
-        input(type='password' id='txtPassword' class='form-control' placeholder='Password' required)
-        button(class='btn btn-primary' id='btnLogin') Log in
-        button(class='btn' id='btnSignup') Sign up
-        button(class='btn' id='btnLoginGoogle') Log in with google
-        button(class='btn' id='btnLogout') Log out
+        div
+            button.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored(id='btnLogin') log in
+            button.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored(id='btnSignup') sign up
+            button.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored(id='btnLoginGoogle') log in with google
+            button.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored(id='btnLogout') log out
     
     script(src='javascripts/controllers/login_controller.js')

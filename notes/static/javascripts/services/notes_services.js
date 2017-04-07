@@ -12,11 +12,9 @@ var notes = {
             date: Date.now()
         }
 
-        console.log(note);
-
         res.writeHead(200, { "Content-Type": "application/json" });
         res.end(JSON.stringify(note));
-        // datastore.save('Note', note);
+        datastore.save('Note', note);
     }
 };
 

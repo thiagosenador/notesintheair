@@ -11,7 +11,7 @@ function save(entityName, entity) {
     datastore.save({
         key: entityKey,
         data: entity
-    })
+    });
 }
 
 function findBy(entityName, field, value) {

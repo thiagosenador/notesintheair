@@ -38,7 +38,8 @@ module.exports = function (req, res, next) {
                 return;
             });
     } else if (url != '/' && url != '/login' && (!token || ecodedToken.exp * 1000 <= Date.now())) {
-        res.render('login');
+        // res.render('login');
+        next();
     } else {
         next();
     }
