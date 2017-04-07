@@ -1,3 +1,5 @@
+'use strict';
+
 const config = require('../../config');
 
 var datastore = require('@google-cloud/datastore')({
@@ -14,12 +16,16 @@ function save(entityName, entity) {
     });
 }
 
-function findBy(entityName, field, value) {
-    const query = datastore.createQuery(entityName).filter('userName', '=', 'thiago');
+function findBy(entityName, field, value, cb) {
+    const query = datastore.createQuery(entityName).filter(field, '=', value);
 
-    datastore.runQuery(query).then((results) => {
-        const entities = results[0];
-        return entities;
+    datastore.runQuery(query, (err, entities, nextQuery) => {
+        if (err) {
+            cb(err);
+            return;
+        }
+        const hasMore = nextQuery.moreResults !== datastore.NO_MORE_RESULTS ? nextQuery.endCursor : false;
+        cb(null, entities, hasMore);
     });
 }
 

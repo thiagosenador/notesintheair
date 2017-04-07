@@ -7,8 +7,8 @@ html
     link(rel='stylesheet', href='https://fonts.googleapis.com/icon?family=Material+Icons')
 
     script(src='/bower_components/jquery/dist/jquery.min.js')
-    script(src='/bower_components/material-design-lite/material.min.js')
     script(src='https://www.gstatic.com/firebasejs/3.7.5/firebase.js')
+    
     script.
       var config = {
         apiKey: "AIzaSyA4ZcvShNm5WU93q2hlxwp_73gefQaSY6c",
@@ -20,6 +20,8 @@ html
       };
       
       firebase.initializeApp(config);
+    
+    script(src='/bower_components/material-design-lite/material.min.js')
 
   body
     .mdl-layout.mdl-js-layout
@@ -29,11 +31,13 @@ html
           .mdl-layout-spacer
           nav.mdl-navigation
             a.mdl-navigation__link(href = '/create_note') create note
+            a.mdl-navigation__link(href = '/my_notes') my notes
             a.mdl-navigation__link(href = '/login') login
       .mdl-layout__drawer
         .span.mdl-layout-title notesintheair
         nav.mdl-navigation
           a.mdl-navigation__link(href = '/create_note') create note
+          a.mdl-navigation__link(href = '/my_notes') my notes
           a.mdl-navigation__link(href = '/login') login
     
     main.mdl-layout__content.custom_content

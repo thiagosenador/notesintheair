@@ -30,7 +30,7 @@
             xhr.send(JSON.stringify(data));
 
         }).catch(function (error) {
-            console.log('Error... ' + error);
+            console.log(error);
         });
     });
 }());

@@ -1,0 +1,22 @@
+extends layout
+
+block content
+    h1 my notes
+
+    button.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored(id='btnTest') test
+
+    script.
+        var myResultList = #{myResultList}
+
+    - var myResultList = myResultList
+
+    ul.mdl-list
+        each note in myResultList
+            li.mdl-list__item.mdl-list__item--two-line
+                span.mdl-list__item-primary-content
+                    i.material-icons.mdl-list__item-avatar person
+                    span note.content
+
+    #myResults
+
+    // script(src='javascripts/controllers/my_notes_controller.js')
