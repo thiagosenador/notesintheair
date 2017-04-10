@@ -6,9 +6,14 @@ var router = express.Router();
 const http = require('http');
 const notesService = require('../static/javascripts/services/notes_services');
 
-/* home page */
+/* index page */
 router.get('/', function (req, res, next) {
   res.render('index');
+});
+
+/* home page */
+router.get('/home', function (req, res, next) {
+  res.render('home');
 });
 
 /* login page */

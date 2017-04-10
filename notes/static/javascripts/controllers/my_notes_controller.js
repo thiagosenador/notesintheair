@@ -5,28 +5,23 @@
     var myResultList = {};
 
     btnTest.addEventListener('click', e => {
-        firebase.auth().currentUser.getToken(true).then(function (idToken) {
-            var data = {};
-            data['user'] = firebase.auth().currentUser.uid;
+        var data = {};
+        data['user'] = firebase.auth().currentUser.uid;
 
-            var xhr = new XMLHttpRequest();
+        var xhr = new XMLHttpRequest();
 
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    console.log(myResultList);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                console.log(myResultList);
 
-                    myResultList = JSON.parse(xhr.responseText);
-                    console.log(JSON.parse(xhr.responseText));
-                }
+                myResultList = JSON.parse(xhr.responseText);
+                console.log(JSON.parse(xhr.responseText));
             }
+        }
 
-            xhr.open('POST', '/api/v1/my_notes', true);
-            xhr.setRequestHeader('Authorization', idToken);
-            xhr.setRequestHeader('Content-type', 'application/json');
-            xhr.send(JSON.stringify(data));
-
-        }).catch(function (error) {
-            console.log(error);
-        });
+        xhr.open('POST', '/api/v1/my_notes', true);
+        xhr.setRequestHeader('Authorization', window.localStorage.getItem('security_token'));
+        xhr.setRequestHeader('Content-type', 'application/json');
+        xhr.send(JSON.stringify(data));
     });
 }());

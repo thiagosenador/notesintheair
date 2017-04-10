@@ -42,7 +42,12 @@
     // Add a realtime listener
     firebase.auth().onAuthStateChanged(firebaseUser => {
         if (firebaseUser) {
-            console.log(firebaseUser);
+            firebase.auth().currentUser.getToken(true).then(function (idToken) {
+                window.localStorage.setItem('security_token', idToken);
+                window.location = '/home';
+            }).catch(function (error) {
+                console.log(error);
+            })
         } else {
             console.log('not logged in');
         }
