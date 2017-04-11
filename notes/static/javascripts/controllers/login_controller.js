@@ -5,7 +5,6 @@
     const btnLogin = document.getElementById('btnLogin');
     const btnSignup = document.getElementById('btnSignup');
     const btnLoginGoogle = document.getElementById('btnLoginGoogle');
-    const btnLogout = document.getElementById('btnLogout');
 
     btnLogin.addEventListener('click', e => {
         const email = txtEmail.value;
@@ -33,10 +32,6 @@
     btnLoginGoogle.addEventListener('click', e => {
         var provider = new firebase.auth.GoogleAuthProvider();
         firebase.auth().signInWithRedirect(provider);
-    });
-
-    btnLogout.addEventListener('click', e => {
-        firebase.auth().signOut();
     });
 
     // Add a realtime listener

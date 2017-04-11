@@ -4,22 +4,31 @@ var express = require('express');
 var router = express.Router();
 
 const http = require('http');
+const securityMiddleware = require('../static/javascripts/middleware/security_middleware');
 const notesService = require('../static/javascripts/services/notes_services');
+
+/* login page */
+router.get('/login', function (req, res, next) {
+  res.render('login');
+});
+
+/* logout page */
+router.get('/logout', function (req, res, next) {
+  res.render('index');
+});
 
 /* index page */
 router.get('/', function (req, res, next) {
   res.render('index');
 });
 
+router.all('/api/*', securityMiddleware.validateApiRequest);
+
 /* home page */
 router.get('/home', function (req, res, next) {
   res.render('home');
 });
 
-/* login page */
-router.get('/login', function (req, res, next) {
-  res.render('login');
-});
 
 /* views */
 router.get('/create_note', function (req, res, next) {

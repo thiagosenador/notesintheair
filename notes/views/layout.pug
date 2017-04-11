@@ -2,9 +2,9 @@ doctype html
 html
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-    link(rel='stylesheet', href='/bower_components/material-design-lite/material.min.css')
-    link(rel='stylesheet', href='https://fonts.googleapis.com/icon?family=Material+Icons')
+    link(rel='stylesheet' href='/stylesheets/style.css')
+    link(rel='stylesheet' href='/bower_components/material-design-lite/material.min.css')
+    link(rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons')
 
     script(src='/bower_components/jquery/dist/jquery.min.js')
     script(src='https://www.gstatic.com/firebasejs/3.7.5/firebase.js')
@@ -29,14 +29,26 @@ html
         .mdl-layout__header-row
           span.mdl-layout-title notesintheair
           .mdl-layout-spacer
-          nav.mdl-navigation
-            a.mdl-navigation__link(href = '/login') login
+          
+          div(id='userMenu')
+            button.mdl-button.mdl-js-button.mdl-button--icon
+              i.material-icons face
+
+            ul.mdl-menu.mdl-menu--bottom-right.mdl-js-menu.mdl-js-ripple-effect(for='userMenu')
+              li.mdl-menu__item
+                a.mdl-menu__item(href='/logout' id='logoutLink') logout
+
+          nav.mdl-navigation(id='loginBar')
+            a.mdl-navigation__link.hide(href='/login' id='loginLink') login
       .mdl-layout__drawer
         .span.mdl-layout-title notesintheair
         nav.mdl-navigation
-          a.mdl-navigation__link(href = '/create_note') create note
-          a.mdl-navigation__link(href = '/my_notes') my notes
-          a.mdl-navigation__link(href = '/login') login
+          a.mdl-navigation__link(href='/create_note') create note
+          a.mdl-navigation__link(href='/my_notes') my notes
+          a.mdl-navigation__link(href='/login' id='loginMenu') login
+          a.mdl-navigation__link(href='/login' id='logoutMenu') logout
     
     main.mdl-layout__content.custom_content
       block content
+    
+    script(src='javascripts/controllers/layout_controller.js')

@@ -41,9 +41,6 @@ app.all('/*', function (req, res, next) {
   }
 });
 
-// Auth Middleware - This will check if the token is valid
-app.all('/*', [require('./static/javascripts/middleware/validateRequest')]);
-
 app.use('/', require('./routes/index'));
 
 // catch 404 and forward to error handler
