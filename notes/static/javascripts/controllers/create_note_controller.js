@@ -5,6 +5,9 @@
     const lngTxt = document.getElementById('lngTxt');
     const createNoteForm = document.getElementById('createNoteForm');
 
+    const takePicture = document.getElementById("takePictureBtn");
+    const showPicture = document.getElementById("showPictureDiv");
+
     createNoteForm.addEventListener('submit', e => {
         e.preventDefault();
 
@@ -27,5 +30,32 @@
         xhr.setRequestHeader('Authorization', window.localStorage.getItem('security_token'));
         xhr.setRequestHeader('Content-type', 'application/json');
         xhr.send(JSON.stringify(data));
+    });
+
+    takePicture.addEventListener('change', e => {
+        var files = e.target.files;
+        var file;
+
+        if (files && files.length > 0) {
+            file = files[0];
+
+            try {
+                var imgURL = window.URL.createObjectURL(file);
+                showPicture.src = imgURL;
+                URL.revokeObjectURL(imgURL);
+            }
+            catch (error) {
+                try {
+                    var fileReader = new FileReader();
+                    fileReader.onload = function (event) {
+                        showPicture.src = event.target.result;
+                    };
+                    fileReader.readAsDataURL(file);
+                }
+                catch (error) {
+                    console.log("Neither createObjectURL or FileReader are supported");
+                }
+            }
+        }
     });
 }());

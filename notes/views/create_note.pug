@@ -9,12 +9,21 @@ block content
     #map
 
     form(id='createNoteForm' action='/api/v1/create_note' method='POST')    
-        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+        .mdl-textfield.mdl-js-textfield
             input.mdl-textfield__input(type='text' id='noteTxt' required autofocus)
             label.mdl-textfield__label(for='noteTxt') note
 
-            input(type='hidden' id ='latTxt')
-            input(type='hidden' id ='lngTxt')
+            input(type='hidden' id='latTxt')
+            input(type='hidden' id='lngTxt')
+        
+        label.mdl-button.mdl-js-button.mdl-button--fab.mdl-js-ripple-effect.mdl-button--colored 
+            i.material-icons camera_enhance
+            input(type='file' capture='camera' accept='image/*' style='display: none;' id='takePictureBtn')
+
+        h2 preview
+        p
+            img(src='about:blank' alt='' id='showPictureDiv')
+
         div
             input.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored(type='submit' id='createNoteBtn' value='create note')
 

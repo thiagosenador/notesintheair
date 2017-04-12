@@ -1,4 +1,21 @@
-extends layout
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet' href='/stylesheets/style.css')
+    link(rel='stylesheet' href='/bower_components/material-design-lite/material.min.css')
+    link(rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons')
+    
+    script(src='/bower_components/material-design-lite/material.min.js')
 
-block content
-    h1 Welcome to notesintheair 
+  body
+    .mdl-layout.mdl-js-container
+      header.mdl-layout__header
+        .mdl-layout__header-row
+          span.mdl-layout-title notesintheair
+          .mdl-layout-spacer
+          nav.mdl-navigation(id='loginBar')
+            a.mdl-navigation__link.hide(href='/login' id='loginLink') login
+    
+    main.mdl-layout__content.custom_content
+        h1 wellcome to my awesome app

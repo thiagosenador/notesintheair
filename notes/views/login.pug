@@ -1,18 +1,46 @@
-extends layout
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet' href='/stylesheets/style.css')
+    link(rel='stylesheet' href='/bower_components/material-design-lite/material.min.css')
+    link(rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons')
+    
+    script(src='/bower_components/material-design-lite/material.min.js')
+    script(src='https://www.gstatic.com/firebasejs/3.7.5/firebase.js')
+    
+    script.
+      var config = {
+        apiKey: "AIzaSyA4ZcvShNm5WU93q2hlxwp_73gefQaSY6c",
+        authDomain: "notesintheair-160023.firebaseapp.com",
+        databaseURL: "https://notesintheair-160023.firebaseio.com",
+        projectId: "notesintheair-160023",
+        storageBucket: "notesintheair-160023.appspot.com",
+        messagingSenderId: "581730209736"
+      };
+      
+      firebase.initializeApp(config);
 
-block content
-    div
-        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-            input.mdl-textfield__input(type='text' id='txtEmail' required autofocus)
-            label.mdl-textfield__label(for='txtEmail') email
-    div
-        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-            input.mdl-textfield__input(type='password' id='txtPassword' required autofocus)
-            label.mdl-textfield__label(for='txtPassword') password
+  body
+    .mdl-layout.mdl-js-container
+      header.mdl-layout__header
+        .mdl-layout__header-row
+          span.mdl-layout-title notesintheair
+    
+    main.mdl-layout__content.custom_content
 
         div
-            button.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored(id='btnLogin') log in
-            button.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored(id='btnSignup') sign up
-            button.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored(id='btnLoginGoogle') log in with google
-    
-    script(src='javascripts/controllers/login_controller.js')
+            .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                input.mdl-textfield__input(type='text' id='txtEmail' required autofocus)
+                label.mdl-textfield__label(for='txtEmail') email
+        div
+            .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+                input.mdl-textfield__input(type='password' id='txtPassword' required autofocus)
+                label.mdl-textfield__label(for='txtPassword') password
+
+            div
+                button.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored(id='btnLogin') log in
+                button.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored(id='btnSignup') sign up
+                button.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored(id='btnLoginGoogle') log in with google
+        
+        script(src='javascripts/controllers/login_controller.js')
