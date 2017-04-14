@@ -4,13 +4,33 @@ const datastore = require('../datastore');
 
 var notes = {
     createNote: function (req, res) {
-        var note = {
-            content: req.body['note'],
-            user: req.body['user'],
-            lat: req.body['lat'],
-            lng: req.body['lng'],
-            date: Date.now()
-        }
+        var note = [
+            {
+                name: 'content',
+                value: req.body['note']
+            },
+            {
+                name: 'user',
+                value: req.body['user']
+            },
+            {
+                name: 'lat',
+                value: req.body['lat']
+            },
+            {
+                name: 'lng',
+                value: req.body['lng']
+            },
+            {
+                name: 'date',
+                value: Date.now()
+            },
+            {
+                name: 'picture',
+                value: req.body['picture'],
+                excludeFromIndexes: true
+            }
+        ];
 
         datastore.save('Note', note);
 

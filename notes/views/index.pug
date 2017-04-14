@@ -1,21 +1,32 @@
 doctype html
 html
   head
-    title= title
+    title notes in the air
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    meta(charset='UTF-8')
+    meta(http-equiv='X-UA-Compatible' content='IE=edge')
+
     link(rel='stylesheet' href='/stylesheets/style.css')
     link(rel='stylesheet' href='/bower_components/material-design-lite/material.min.css')
     link(rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons')
     
-    script(src='/bower_components/material-design-lite/material.min.js')
-
   body
-    .mdl-layout.mdl-js-container
-      header.mdl-layout__header
-        .mdl-layout__header-row
-          span.mdl-layout-title notesintheair
-          .mdl-layout-spacer
-          nav.mdl-navigation(id='loginBar')
-            a.mdl-navigation__link.hide(href='/login' id='loginLink') login
+    .mdl-layout.mdl-js-layout.mdl-layout--fixed-header
+      header.mdl-layout__header.mdl-layout__header--waterfall.site-header
+        .mdl-layout__header-row.site-logo-row
+          span.mdl-layout__title
+            div thiago
+            span.site-description notesintheair
+
+
+      main.mdl-layout__content
+        .site-content
+          .container
+            block content
+        
+        footer.mdl-mini-footer
+          .footer-container
+            .mdl-logo &copy; Unitiled. Design:
+              a(href='www.google.com') thiagosenador
     
-    main.mdl-layout__content.custom_content
-        h1 wellcome to my awesome app
+    script(src='/bower_components/material-design-lite/material.min.js')

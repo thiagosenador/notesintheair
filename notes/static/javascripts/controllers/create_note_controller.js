@@ -1,5 +1,7 @@
 (function () {
 
+    var imageRawData = null;
+
     const noteTxt = document.getElementById('noteTxt');
     const latTxt = document.getElementById('latTxt');
     const lngTxt = document.getElementById('lngTxt');
@@ -16,6 +18,10 @@
         data['lat'] = latTxt.value;
         data['lng'] = lngTxt.value;
         data['user'] = firebase.auth().currentUser.uid;
+
+        if (imageRawData) {
+            data['picture'] = imageRawData;
+        }
 
         var xhr = new XMLHttpRequest();
 
@@ -39,9 +45,9 @@
         if (files && files.length > 0) {
             file = files[0];
 
-            var fileReader = new FileReader();
+            fileReader = new FileReader();
             fileReader.onload = function (event) {
-                showPicture.src = event.target.result;
+                imageRawData = showPicture.src = event.target.result;
             };
             fileReader.readAsDataURL(file);
         }
