@@ -1,12 +1,15 @@
 doctype html
 html
   head
-    title= title
+    title notes in the air
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    meta(charset='UTF-8')
+    meta(http-equiv='X-UA-Compatible' content='IE=edge')
+
     link(rel='stylesheet' href='/stylesheets/style.css')
     link(rel='stylesheet' href='/bower_components/material-design-lite/material.min.css')
     link(rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons')
 
-    script(src='/bower_components/jquery/dist/jquery.min.js')
     script(src='https://www.gstatic.com/firebasejs/3.7.5/firebase.js')
     
     script.
@@ -21,28 +24,46 @@ html
       
       firebase.initializeApp(config);
     
-    script(src='/bower_components/material-design-lite/material.min.js')
-
   body
-    .mdl-layout.mdl-js-layout
-      header.mdl-layout__header
-        .mdl-layout__header-row
-          span.mdl-layout-title notesintheair
-          .mdl-layout-spacer
+    .mdl-layout.mdl-js-layout.mdl-layout--fixed-header
+      header.mdl-layout__header.mdl-layout__header--waterfall.site-header
+        .mdl-layout__header-row.site-logo-row
+          span.mdl-layout__title
+            div thiago
+            span.site-description notesintheair
+        .mdl-layout__header-row.site-navigation-row.mdl-layout--large-screen-only
+          nav.mdl-navigation.mdl-typography--body-1-force-preferred-font
+            a.mdl-navigation__link home
+            a.mdl-navigation__link contact
+            a.mdl-navigation__link follow us
+      .mdl-layout__drawer.mdl-layout--small-screen-only
+        nav.mdl-navigation.mdl-typography--body-1-force-preferred-font
+          a.mdl-navigation__link home
+          a.mdl-navigation__link contact
+          a.mdl-navigation__link follow us
           
-          div(id='userMenu')
-            button.mdl-button.mdl-js-button.mdl-button--icon
-              i.material-icons face
+      //-     div(id='userMenu')
+      //-       button.mdl-button.mdl-js-button.mdl-button--icon
+      //-         i.material-icons face
 
-            ul.mdl-menu.mdl-menu--bottom-right.mdl-js-menu.mdl-js-ripple-effect(for='userMenu')
-              li.mdl-menu__item
-                a.mdl-menu__item(href='/logout') logout
+      //-       ul.mdl-menu.mdl-menu--bottom-right.mdl-js-menu.mdl-js-ripple-effect(for='userMenu')
+      //-         li.mdl-menu__item
+      //-           a.mdl-menu__item(href='/logout') logout
 
-      .mdl-layout__drawer
-        .span.mdl-layout-title notesintheair
-        nav.mdl-navigation
-          a.mdl-navigation__link(href='/create_note') create note
-          a.mdl-navigation__link(href='/my_notes') my notes
+      //- .mdl-layout__drawer
+      //-   .span.mdl-layout-title notesintheair
+      //-   nav.mdl-navigation
+      //-     a.mdl-navigation__link(href='/create_note') create note
+      //-     a.mdl-navigation__link(href='/my_notes') my notes
 
-    main.mdl-layout__content.custom_content
-      block content
+      main.mdl-layout__content
+        .site-content
+          .container
+            block content
+        
+        footer.mdl-mini-footer
+          .footer-container
+            .mdl-logo &copy; Unitiled. Design:
+              a(href='www.google.com') thiagosenador
+    
+    script(src='/bower_components/material-design-lite/material.min.js')

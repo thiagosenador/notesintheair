@@ -39,23 +39,11 @@
         if (files && files.length > 0) {
             file = files[0];
 
-            try {
-                var imgURL = window.URL.createObjectURL(file);
-                showPicture.src = imgURL;
-                URL.revokeObjectURL(imgURL);
-            }
-            catch (error) {
-                try {
-                    var fileReader = new FileReader();
-                    fileReader.onload = function (event) {
-                        showPicture.src = event.target.result;
-                    };
-                    fileReader.readAsDataURL(file);
-                }
-                catch (error) {
-                    console.log("Neither createObjectURL or FileReader are supported");
-                }
-            }
+            var fileReader = new FileReader();
+            fileReader.onload = function (event) {
+                showPicture.src = event.target.result;
+            };
+            fileReader.readAsDataURL(file);
         }
     });
 }());

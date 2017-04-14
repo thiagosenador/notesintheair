@@ -1,78 +1,68 @@
-//Calling the locateme function when the document finishes loading
-$(document).ready(function () {
-    locateMe();
-});
+(function () {
 
-//Function to locate the user
-var locateMe = function () {
-    var map_element = $('#map');
+    var map_element = document.getElementById('map');
     if (navigator.geolocation) {
         var position = navigator.geolocation.getCurrentPosition(loadMap);
     } else {
         map_element.innerHTML = "Geolocation is not supported by this browser.";
     }
-};
 
-//Lets load the mop using the position
-var loadMap = function (position) {
-    var loading = $('#loading');
-    var latitude = position.coords.latitude;
-    var longitude = position.coords.longitude;
-    var myLatlng = new google.maps.LatLng(latitude, longitude);
+    //Lets load the mop using the position
+    function loadMap(position) {
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
 
-    //Initializing the options for the map
-    var myOptions = {
-        center: myLatlng,
-        zoom: 15,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-        streetViewControl: false,
-		mapTypeControl: false
-    };
+        var myLatlng = new google.maps.LatLng(latitude, longitude);
 
-    //Creating the map in teh DOM
-    var map_element = document.getElementById("map");
-    var map = new google.maps.Map(map_element, myOptions);
+        //Initializing the options for the map
+        var myOptions = {
+            center: myLatlng,
+            zoom: 15,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            streetViewControl: false,
+            mapTypeControl: false
+        };
 
-    //Adding markers to it
-    var marker = new google.maps.Marker({
-        position: myLatlng,
-        map: map,
-        title: 'You are here'
-    });
+        //Creating the map in teh DOM
+        var map_element = document.getElementById('google-maps');
+        var map = new google.maps.Map(map_element, myOptions);
 
-    circle = new google.maps.Circle({
-		strokeColor: '#FF0000',
-		strokeOpacity: 0.8,
-		strokeWeight: 1,
-		fillColor: '#FF0000',
-		fillOpacity: 0.35,
-		map: map,
-        center: myLatlng,
-        radius: 200
-	});
+        //Adding markers to it
+        var marker = new google.maps.Marker({
+            position: myLatlng,
+            map: map,
+            title: 'You are here'
+        });
 
-	circle.setMap(map);
+        circle = new google.maps.Circle({
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.8,
+            strokeWeight: 1,
+            fillColor: '#FF0000',
+            fillOpacity: 0.35,
+            map: map,
+            center: myLatlng,
+            radius: 200
+        });
 
-    //Adding the Marker content to it
-    var infowindow = new google.maps.InfoWindow({
-        content: "<h2>You are here :)</h2>",
-        //Settingup the maxwidth
-        maxWidth: 300
-    });
+        circle.setMap(map);
 
-    //Event listener to trigger the marker content
-    google.maps.event.addListener(marker, 'click', function () {
-        infowindow.open(map, marker);
-    });
+        //Adding the Marker content to it
+        var infowindow = new google.maps.InfoWindow({
+            content: "<h2>You are here :)</h2>",
+            //Settingup the maxwidth
+            maxWidth: 300
+        });
 
-    var lat_field = $('#latTxt');
-    lat_field.val(myLatlng.lat);
-    lat_field.trigger('input');
+        //Event listener to trigger the marker content
+        google.maps.event.addListener(marker, 'click', function () {
+            infowindow.open(map, marker);
+        });
 
-    var lng_field = $('#lngTxt');
-    lng_field.val(myLatlng.lng);
-    lng_field.trigger('input');
+        var lat_field = document.getElementById('latTxt');
+        lat_field.value = latitude;
 
-    // $("#lat").val(myLatlng.lat);
-	// $("#lng").val(myLatlng.lng);
-};
+        var lng_field = document.getElementById('lngTxt');
+        lng_field.value = longitude;
+    }
+}());

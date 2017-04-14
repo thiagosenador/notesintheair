@@ -1,19 +1,19 @@
 extends layout
 
 block content
-    
-    .mdl-card.mdl-shadow--2dp
-        .mdl-card__title
-            h2.mdl-card__title-text create note
-        .mdl-card__supporting-text create your note
-        .mdl-card__actions.mdl-card--border
-            a.mdl-button.mdl-button--colored.mdl-js-button.mdl-js-ripple-effect(href = '/create_note') create
-    
-    br
 
-    .mdl-card.mdl-shadow--2dp
-        .mdl-card__title
-            h2.mdl-card__title-text my notes
-        .mdl-card__supporting-text where are my notes
-        .mdl-card__actions.mdl-card--border
-            a.mdl-button.mdl-button--colored.mdl-js-button.mdl-js-ripple-effect(href = '/my_notes') my notes
+    .mdl-grid.site-max-width
+        .mdl-cell.mdl-cell--12-col.mdl-card.mdl-shadow--4dp
+            .mdl-card__title
+                h2.mdl-card__title-text create note
+            .mdl-card__supporting-text create your note
+            .mdl-card__actions.mdl-card--border
+                a.mdl-button.mdl-button--colored.mdl-js-button.mdl-js-ripple-effect.mdl-button--accent(href = '/create_note') create
+    
+    .mdl-grid.site-max-width
+        .mdl-cell.mdl-cell--12-col.mdl-card.mdl-shadow--4dp
+            .mdl-card__title
+                h2.mdl-card__title-text my notes
+            .mdl-card__supporting-text where are my notes
+            .mdl-card__actions.mdl-card--border
+                a.mdl-button.mdl-button--colored.mdl-js-button.mdl-js-ripple-effect.mdl-button--accent(href = '/my_notes') my notes

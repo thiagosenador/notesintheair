@@ -4,27 +4,41 @@ block content
     script(src='http://maps.google.com/maps/api/js?key=AIzaSyAmhHjISB0MUEDdB5-5OCbfuxmXwqVibSE')
     script(src='/javascripts/map.js')
 
-    h1 create note
+    form.form-contact(id='createNoteForm' action='/api/v1/create_note' method='POST') 
+        .mdl-grid.site-max-width
+            .mdl-cell.mdl-cell--12-col.mdl-shadow--4dp.page-content
+                .mdl-card__title
+                    h1.mdl-card__title-text create note
+                .mdl-card__media
+                .mdl-grid.site-copy
+                    .mdl-cell.mdl-cell--12-col
+                        .mdl-card__supporting-text
+                            p Contact our team using the contact form below:
 
-    #map
+                            #google-maps.google-maps
 
-    form(id='createNoteForm' action='/api/v1/create_note' method='POST')    
-        .mdl-textfield.mdl-js-textfield
-            input.mdl-textfield__input(type='text' id='noteTxt' required autofocus)
-            label.mdl-textfield__label(for='noteTxt') note
+                            
+                            input(type='hidden' id='latTxt')
+                            input(type='hidden' id='lngTxt')
+                                
+                            .mdl-textfield.mdl-js-textfield
+                                input.mdl-textfield__input(type='text' id='noteTxt' required autofocus)
+                                label.mdl-textfield__label(for='noteTxt') note    
 
-            input(type='hidden' id='latTxt')
-            input(type='hidden' id='lngTxt')
-        
-        label.mdl-button.mdl-js-button.mdl-button--fab.mdl-js-ripple-effect.mdl-button--colored 
-            i.material-icons camera_enhance
-            input(type='file' capture='camera' accept='image/*' style='display: none;' id='takePictureBtn')
+        .mdl-grid.site-max-width
+            .mdl-cell.mdl-cell--12-col.mdl-shadow--4dp.page-content
+                .mdl-card__title
+                    h2.mdl-card__title-text add a picture
+                .mdl-card__media
+                .mdl-grid.site-copy
+                    .mdl-cell.mdl-cell--12-col
+                        .mdl-card__supporting-text
+                            img(src='' alt='' id='showPictureDiv' border='5')
+                .mdl-card__actions.mdl-card--border    
+                    label.mdl-button.mdl-button--colored.mdl-js-button.mdl-js-ripple-effect add a picture
+                        input(type='file' capture='camera' accept='image/*' style='display: none;' id='takePictureBtn')
 
-        h2 preview
-        p
-            img(src='about:blank' alt='' id='showPictureDiv')
-
-        div
-            input.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored(type='submit' id='createNoteBtn' value='create note')
+        button#submit-button.mdl-button.mdl-button--fab.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-color--accent.mdl-color-text--accent-contrast.mdl-shadow--4dp(type='submit')
+            i.material-icons note_add
 
     script(src='javascripts/controllers/create_note_controller.js')
