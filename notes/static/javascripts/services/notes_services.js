@@ -24,22 +24,25 @@ var notes = {
             {
                 name: 'date',
                 value: Date.now()
-            },
-            {
-                name: 'picture',
-                value: req.body['picture'],
-                excludeFromIndexes: true
             }
         ];
 
+        if (req.body['picture']) {
+            note.push(
+                {
+                    name: 'picture',
+                    value: req.body['picture'],
+                    excludeFromIndexes: true
+                });
+        }
+
         datastore.save('Note', note);
 
-        res.json(JSON.stringify(note));
+        res.sendStatus(200);
     },
 
     getNotesFromUser: function (req, res) {
-        //var userId = req.body['user'];
-        var userId = 'CjcR83yDSjM1wfJIaMJ0x2neKXZ2';
+        var userId = req.params.user;
 
         datastore.findBy('Note', 'user', userId, (err, entities, cursor) => {
             if (err) {
@@ -48,9 +51,7 @@ var notes = {
                 return;
             }
 
-            res.json({
-                notes: entities
-            });
+            res.json(entities);
         });
     }
 };

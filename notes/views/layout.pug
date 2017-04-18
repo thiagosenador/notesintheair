@@ -11,7 +11,6 @@ html
     link(rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons')
 
     script(src='https://www.gstatic.com/firebasejs/3.7.5/firebase.js')
-    
     script.
       var config = {
         apiKey: "AIzaSyA4ZcvShNm5WU93q2hlxwp_73gefQaSY6c",
@@ -23,6 +22,8 @@ html
       };
       
       firebase.initializeApp(config);
+
+    script(src='../javascripts/middleware/request_interceptor.js')
     
   body
     .mdl-layout.mdl-js-layout.mdl-layout--fixed-header
@@ -33,37 +34,21 @@ html
             span.site-description notesintheair
         .mdl-layout__header-row.site-navigation-row.mdl-layout--large-screen-only
           nav.mdl-navigation.mdl-typography--body-1-force-preferred-font
-            a.mdl-navigation__link home
-            a.mdl-navigation__link contact
-            a.mdl-navigation__link follow us
+            a.mdl-navigation__link(href='/create_note') create note
+            a.mdl-navigation__link(href='/my_notes') my notes
       .mdl-layout__drawer.mdl-layout--small-screen-only
         nav.mdl-navigation.mdl-typography--body-1-force-preferred-font
-          a.mdl-navigation__link home
-          a.mdl-navigation__link contact
-          a.mdl-navigation__link follow us
-          
-      //-     div(id='userMenu')
-      //-       button.mdl-button.mdl-js-button.mdl-button--icon
-      //-         i.material-icons face
-
-      //-       ul.mdl-menu.mdl-menu--bottom-right.mdl-js-menu.mdl-js-ripple-effect(for='userMenu')
-      //-         li.mdl-menu__item
-      //-           a.mdl-menu__item(href='/logout') logout
-
-      //- .mdl-layout__drawer
-      //-   .span.mdl-layout-title notesintheair
-      //-   nav.mdl-navigation
-      //-     a.mdl-navigation__link(href='/create_note') create note
-      //-     a.mdl-navigation__link(href='/my_notes') my notes
+          a.mdl-navigation__link(href='/create_note') create note
+          a.mdl-navigation__link(href='/my_notes') my notes
 
       main.mdl-layout__content
         .site-content
           .container
             block content
         
-        footer.mdl-mini-footer
-          .footer-container
-            .mdl-logo &copy; Unitiled. Design:
-              a(href='www.google.com') thiagosenador
+    footer.mdl-mini-footer
+      .footer-container
+        .mdl-logo &copy; Unitiled. Design:
+          a(href='www.google.com') thiagosenador
     
     script(src='/bower_components/material-design-lite/material.min.js')

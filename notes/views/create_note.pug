@@ -10,27 +10,26 @@ block content
                 .mdl-card__title
                     h1.mdl-card__title-text create note
                 .mdl-card__media
-                .mdl-grid.site-copy
+                .mdl-grid
                     .mdl-cell.mdl-cell--12-col
                         .mdl-card__supporting-text
                             p Contact our team using the contact form below:
 
                             #google-maps.google-maps
-
                             
                             input(type='hidden' id='latTxt')
                             input(type='hidden' id='lngTxt')
                                 
                             .mdl-textfield.mdl-js-textfield
                                 input.mdl-textfield__input(type='text' id='noteTxt' required autofocus)
-                                label.mdl-textfield__label(for='noteTxt') note    
+                                label.mdl-textfield__label(for='noteTxt') note
 
         .mdl-grid.site-max-width
             .mdl-cell.mdl-cell--12-col.mdl-shadow--4dp.page-content
                 .mdl-card__title
                     h2.mdl-card__title-text add a picture
                 .mdl-card__media
-                .mdl-grid.site-copy
+                .mdl-grid
                     .mdl-cell.mdl-cell--12-col
                         .mdl-card__supporting-text
                             img(src='' alt='' id='showPictureDiv' border='5')
@@ -40,5 +39,9 @@ block content
 
         button#submit-button.mdl-button.mdl-button--fab.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-color--accent.mdl-color-text--accent-contrast.mdl-shadow--4dp(type='submit')
             i.material-icons note_add
+    
+    .mdl-js-snackbar.mdl-snackbar#toast_message
+        .mdl-snackbar__text
+        button.mdl-snackbar__action
 
     script(src='javascripts/controllers/create_note_controller.js')

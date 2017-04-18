@@ -1,14 +1,16 @@
 doctype html
 html
   head
-    title= title
+    title notes in the air
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    meta(charset='UTF-8')
+    meta(http-equiv='X-UA-Compatible' content='IE=edge')
+
     link(rel='stylesheet' href='/stylesheets/style.css')
     link(rel='stylesheet' href='/bower_components/material-design-lite/material.min.css')
     link(rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons')
-    
-    script(src='/bower_components/material-design-lite/material.min.js')
+
     script(src='https://www.gstatic.com/firebasejs/3.7.5/firebase.js')
-    
     script.
       var config = {
         apiKey: "AIzaSyA4ZcvShNm5WU93q2hlxwp_73gefQaSY6c",
@@ -22,25 +24,39 @@ html
       firebase.initializeApp(config);
 
   body
-    .mdl-layout.mdl-js-container
-      header.mdl-layout__header
-        .mdl-layout__header-row
-          span.mdl-layout-title notesintheair
-    
-    main.mdl-layout__content.custom_content
+    .mdl-layout.mdl-js-layout.mdl-layout--fixed-header
+      header.mdl-layout__header.mdl-layout__header--waterfall.site-header
+        .mdl-layout__header-row.site-logo-row
+          span.mdl-layout__title
+            div thiago
+            span.site-description notesintheair
 
-        div
-            .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                input.mdl-textfield__input(type='text' id='txtEmail' required autofocus)
-                label.mdl-textfield__label(for='txtEmail') email
-        div
-            .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-                input.mdl-textfield__input(type='password' id='txtPassword' required autofocus)
-                label.mdl-textfield__label(for='txtPassword') password
+      main.mdl-layout__content
+        .site-content
+          .container
+              .mdl-grid.site-max-width.form-contact
+                .mdl-cell.mdl-cell--12-col.mdl-shadow--4dp.page-content
+                  .mdl-card__title
+                    h1.mdl-card__title-text login
+                  .mdl-card__media
+                  .mdl-grid
+                    .mdl-cell.mdl-cell--12-col
+                      .mdl-card__supporting-text
+                        .mdl-textfield.mdl-js-textfield
+                          input.mdl-textfield__input(type='text' id='txtEmail')
+                          label.mdl-textfield__label(for='txtEmail') email
+                        .mdl-textfield.mdl-js-textfield
+                          input.mdl-textfield__input(type='password' id='txtPassword')
+                          label.mdl-textfield__label(for='txtPassword') password
+                  .mdl-card__actions.mdl-card--border   
+                    button.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored(id='btnLogin') log in
+                    button.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored(id='btnSignup') sign up
+                    button.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored(id='btnLoginGoogle') log in with google 
 
-            div
-                button.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored(id='btnLogin') log in
-                button.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored(id='btnSignup') sign up
-                button.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored(id='btnLoginGoogle') log in with google
+      footer.mdl-mini-footer
+        .footer-container
+          .mdl-logo &copy; Unitiled. Design:
+            a(href='www.google.com') thiagosenador
         
-        script(src='javascripts/controllers/login_controller.js')
+    script(src='javascripts/controllers/login_controller.js')
+    script(src='/bower_components/material-design-lite/material.min.js')

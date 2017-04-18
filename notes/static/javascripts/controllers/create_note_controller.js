@@ -27,14 +27,14 @@
 
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
-                var json = JSON.parse(xhr.responseText);
-                console.log(json);
+                const toastMessage = document.getElementById('toast_message');
+
+                var data = { message: 'your note was posted successfully!!!' };
+                toastMessage.MaterialSnackbar.showSnackbar(data);
             }
         }
 
         xhr.open(createNoteForm.method, createNoteForm.action, true);
-        xhr.setRequestHeader('Authorization', window.localStorage.getItem('security_token'));
-        xhr.setRequestHeader('Content-type', 'application/json');
         xhr.send(JSON.stringify(data));
     });
 

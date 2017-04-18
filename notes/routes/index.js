@@ -36,22 +36,7 @@ router.get('/create_note', function (req, res, next) {
 });
 
 router.get('/my_notes', function (req, res, next) {
-
-  var requestOptions = {
-    path: '/api/v1/my_notes',
-    method: 'POST',
-    port: 8080
-  };
-
-  var r = notesService.getNotesFromUser(req, res);
-  res.render('my_notes', { notes: r });
-
-  // http.request(requestOptions, function (apiResponse) {
-  //   apiResponse.on('data', function (body) {
-  //     console.log(body);
-  //     res.render('my_notes', { notes: body });
-  //   })
-  // });
+  res.render('my_notes');
 });
 
 /*
@@ -59,6 +44,6 @@ router.get('/my_notes', function (req, res, next) {
  * Routes that can be accessed only by autheticated users
  */
 router.post('/api/v1/create_note', notesService.createNote);
-router.post('/api/v1/my_notes', notesService.getNotesFromUser);
+router.get('/api/v1/my_notes/:user', notesService.getNotesFromUser);
 
 module.exports = router;
