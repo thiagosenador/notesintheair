@@ -22,7 +22,7 @@ nconf
     .file({ file: path.join(__dirname, 'config.json') })
     // 4. Defaults
     .defaults({
-        CLOUD_BUCKET: 'notesintheair-160023',
+        CLOUD_BUCKET: 'notes_media',
         DATA_BACKEND: 'datastore',
         GCLOUD_PROJECT: 'notesintheair-160023',
         OAUTH2_CLIENT_ID: '581730209736-am152g2d88qp4hco5vqetpjuqfvat5i4.apps.googleusercontent.com',

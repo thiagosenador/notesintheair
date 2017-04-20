@@ -35,6 +35,7 @@
         }
 
         xhr.open(createNoteForm.method, createNoteForm.action, true);
+        xhr.setRequestHeader('Content-type', 'application/json');
         xhr.send(JSON.stringify(data));
     });
 

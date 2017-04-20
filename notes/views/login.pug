@@ -8,8 +8,9 @@ html
 
     link(rel='stylesheet' href='/stylesheets/style.css')
     link(rel='stylesheet' href='/bower_components/material-design-lite/material.min.css')
+    link(rel='stylesheet' href='/bower_components/firebaseui/dist/firebaseui.css')
     link(rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons')
-
+  
     script(src='https://www.gstatic.com/firebasejs/3.7.5/firebase.js')
     script.
       var config = {
@@ -23,6 +24,24 @@ html
       
       firebase.initializeApp(config);
 
+    script(src='/bower_components/firebaseui/dist/firebaseui.js')
+    script.
+      // FirebaseUI config.
+      var uiConfig = {
+        signInSuccessUrl: '/home',
+        signInOptions: [
+          // Leave the lines as is for the providers you want to offer your users.
+          firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+          firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+          firebase.auth.EmailAuthProvider.PROVIDER_ID
+        ]
+      };
+
+      // Initialize the FirebaseUI Widget using Firebase.
+      var ui = new firebaseui.auth.AuthUI(firebase.auth());
+      // The start method will wait until the DOM is loaded.
+      ui.start('#firebaseui-auth-container', uiConfig);
+
   body
     .mdl-layout.mdl-js-layout.mdl-layout--fixed-header
       header.mdl-layout__header.mdl-layout__header--waterfall.site-header
@@ -33,30 +52,11 @@ html
 
       main.mdl-layout__content
         .site-content
-          .container
-              .mdl-grid.site-max-width.form-contact
-                .mdl-cell.mdl-cell--12-col.mdl-shadow--4dp.page-content
-                  .mdl-card__title
-                    h1.mdl-card__title-text login
-                  .mdl-card__media
-                  .mdl-grid
-                    .mdl-cell.mdl-cell--12-col
-                      .mdl-card__supporting-text
-                        .mdl-textfield.mdl-js-textfield
-                          input.mdl-textfield__input(type='text' id='txtEmail')
-                          label.mdl-textfield__label(for='txtEmail') email
-                        .mdl-textfield.mdl-js-textfield
-                          input.mdl-textfield__input(type='password' id='txtPassword')
-                          label.mdl-textfield__label(for='txtPassword') password
-                  .mdl-card__actions.mdl-card--border   
-                    button.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored(id='btnLogin') log in
-                    button.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored(id='btnSignup') sign up
-                    button.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored(id='btnLoginGoogle') log in with google 
+          .container#firebaseui-auth-container
 
       footer.mdl-mini-footer
         .footer-container
           .mdl-logo &copy; Unitiled. Design:
             a(href='www.google.com') thiagosenador
-        
-    script(src='javascripts/controllers/login_controller.js')
+            
     script(src='/bower_components/material-design-lite/material.min.js')

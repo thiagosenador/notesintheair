@@ -1,5 +1,4 @@
 (function () {
-    console.log(local_data);
 
 
     firebase.auth().onAuthStateChanged(function (user) {

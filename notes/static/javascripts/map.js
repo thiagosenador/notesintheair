@@ -24,7 +24,7 @@
         };
 
         //Creating the map in teh DOM
-        var map_element = document.getElementById('google-maps');
+        var map_element = document.getElementById('note-maps');
         var map = new google.maps.Map(map_element, myOptions);
 
         //Adding markers to it
@@ -47,17 +47,17 @@
 
         circle.setMap(map);
 
-        //Adding the Marker content to it
-        var infowindow = new google.maps.InfoWindow({
-            content: "<h2>You are here :)</h2>",
-            //Settingup the maxwidth
-            maxWidth: 300
-        });
+        // //Adding the Marker content to it
+        // var infowindow = new google.maps.InfoWindow({
+        //     content: "<h2>You are here :)</h2>",
+        //     //Settingup the maxwidth
+        //     maxWidth: 300
+        // });
 
-        //Event listener to trigger the marker content
-        google.maps.event.addListener(marker, 'click', function () {
-            infowindow.open(map, marker);
-        });
+        // //Event listener to trigger the marker content
+        // google.maps.event.addListener(marker, 'click', function () {
+        //     infowindow.open(map, marker);
+        // });
 
         var lat_field = document.getElementById('latTxt');
         lat_field.value = latitude;

@@ -1,48 +1,61 @@
 'use strict';
 
 const datastore = require('../datastore');
+const mapServices = require('./map_services');
+const bucketServices = require('./bucket_services');
 
 var notes = {
     createNote: function (req, res) {
-        var note = [
-            {
-                name: 'content',
-                value: req.body['note']
-            },
-            {
-                name: 'user',
-                value: req.body['user']
-            },
-            {
-                name: 'lat',
-                value: req.body['lat']
-            },
-            {
-                name: 'lng',
-                value: req.body['lng']
-            },
-            {
-                name: 'date',
-                value: Date.now()
-            }
-        ];
+        var location = null;
 
-        if (req.body['picture']) {
-            note.push(
+        mapServices.getCity(req.body['lat'], req.body['lng'], (location) => {
+            var note = [
                 {
-                    name: 'picture',
-                    value: req.body['picture'],
+                    name: 'content',
+                    value: req.body['note'],
                     excludeFromIndexes: true
-                });
-        }
+                },
+                {
+                    name: 'user',
+                    value: req.body['user']
+                },
+                {
+                    name: 'lat',
+                    value: req.body['lat']
+                },
+                {
+                    name: 'lng',
+                    value: req.body['lng']
+                },
+                {
+                    name: 'location',
+                    value: location
+                },
+                {
+                    name: 'date',
+                    value: Date.now(),
+                    excludeFromIndexes: true
+                }
+            ];
 
-        datastore.save('Note', note);
+            if (req.body['picture']) {
+                note.push(
+                    {
+                        name: 'picture',
+                        value: req.body['picture'],
+                        excludeFromIndexes: true
+                    });
+            }
 
-        res.sendStatus(200);
+            datastore.save('Note', note);
+
+            res.sendStatus(200);
+        });
     },
 
     getNotesFromUser: function (req, res) {
-        var userId = req.params.user;
+        // var userId = req.params.user;
+        var userId = 'CjcR83yDSjM1wfJIaMJ0x2neKXZ2'
 
         datastore.findBy('Note', 'user', userId, (err, entities, cursor) => {
             if (err) {

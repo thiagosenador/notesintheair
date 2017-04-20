@@ -22,7 +22,7 @@ router.get('/', function (req, res, next) {
   res.render('index');
 });
 
-router.all('/api/*', securityMiddleware.validateApiRequest);
+// router.all('/api/*', securityMiddleware.validateApiRequest);
 
 /* home page */
 router.get('/home', function (req, res, next) {
