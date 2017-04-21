@@ -19,8 +19,10 @@
         data['lng'] = lngTxt.value;
         data['user'] = firebase.auth().currentUser.uid;
 
+        console.log(imageRawData);
+
         if (imageRawData) {
-            data['picture'] = imageRawData;
+            data['picture'] = imageRawData.replace('data:image/jpeg;base64,', '');
         }
 
         var xhr = new XMLHttpRequest();
@@ -47,7 +49,7 @@
             file = files[0];
 
             fileReader = new FileReader();
-            fileReader.onload = function (event) {
+            fileReader.onloadend = function (event) {
                 imageRawData = showPicture.src = event.target.result;
             };
             fileReader.readAsDataURL(file);

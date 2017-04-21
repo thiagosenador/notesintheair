@@ -8,12 +8,18 @@ var datastore = require('@google-cloud/datastore')({
 });
 
 function save(entityName, entity) {
-    var entityKey = datastore.key(entityName);
+    const dsKey = datastore.key(entityName);
 
-    datastore.save({
-        key: entityKey,
+    const dsEntity = {
+        key: dsKey,
         data: entity
-    });
+    };
+
+    return datastore.save(dsEntity)
+        .then(() => {
+            console.log(dsKey.id);
+            return dsKey;
+        });
 }
 
 function findBy(entityName, field, value, cb) {

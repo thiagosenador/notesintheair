@@ -6,8 +6,6 @@ const bucketServices = require('./bucket_services');
 
 var notes = {
     createNote: function (req, res) {
-        var location = null;
-
         mapServices.getCity(req.body['lat'], req.body['lng'], (location) => {
             var note = [
                 {
@@ -35,21 +33,23 @@ var notes = {
                     name: 'date',
                     value: Date.now(),
                     excludeFromIndexes: true
+                },
+                {
+                    name: 'hasMedia',
+                    value: req.body['picture'] ? true : false,
+                    excludeFromIndexes: true
                 }
             ];
 
-            if (req.body['picture']) {
-                note.push(
-                    {
-                        name: 'picture',
-                        value: req.body['picture'],
-                        excludeFromIndexes: true
-                    });
-            }
+            datastore.save('Note', note).then(function (key) {
+                if (req.body['picture']) {
+                    req.body['picture_id'] = key.id;
 
-            datastore.save('Note', note);
+                    bucketServices.sendUploadToGCS(req, res);
+                }
 
-            res.sendStatus(200);
+                res.sendStatus(200);
+            });
         });
     },
 
