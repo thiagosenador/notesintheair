@@ -17,25 +17,37 @@ function save(entityName, entity) {
 
     return datastore.save(dsEntity)
         .then(() => {
-            console.log(dsKey.id);
             return dsKey;
         });
 }
 
-function findBy(entityName, field, value, cb) {
+function findBy(entityName, field, value) {
     const query = datastore.createQuery(entityName).filter(field, '=', value);
 
-    datastore.runQuery(query, (err, entities, nextQuery) => {
-        if (err) {
-            cb(err);
-            return;
-        }
-        const hasMore = nextQuery.moreResults !== datastore.NO_MORE_RESULTS ? nextQuery.endCursor : false;
-        cb(null, entities, hasMore);
+    return datastore.runQuery(query).then((results) => {
+        var entities = results[0];
+
+        entities.forEach((entity) => entity.id = entity[datastore.KEY].id);
+
+        return entities;
     });
 }
 
+function findById(entityName, id) {
+    const query = datastore.createQuery(entityName).filter('__key__', '=', datastore.key([entityName, id])).limit(1);
+
+    return datastore.runQuery(query).then((result) => {
+        var entities = results[0];
+
+        entities.forEach((entity) => entity.id = entity[datastore.KEY].id);
+
+        return entities;
+    });
+
+}
+
 module.exports = {
-    save: save,
-    findBy: findBy
+    save,
+    findBy,
+    findById
 }

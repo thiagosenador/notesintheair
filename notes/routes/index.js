@@ -45,5 +45,6 @@ router.get('/my_notes', function (req, res, next) {
  */
 router.post('/api/v1/create_note', notesService.createNote);
 router.get('/api/v1/my_notes/:user', notesService.getNotesFromUser);
+router.get('/api/v1/note_detail/:note', notesService.getNoteDetail);
 
 module.exports = router;

@@ -18,11 +18,9 @@
         data['lat'] = latTxt.value;
         data['lng'] = lngTxt.value;
         data['user'] = firebase.auth().currentUser.uid;
-
-        console.log(imageRawData);
-
+        
         if (imageRawData) {
-            data['picture'] = imageRawData.replace('data:image/jpeg;base64,', '');
+            data['picture'] = imageRawData;
         }
 
         var xhr = new XMLHttpRequest();

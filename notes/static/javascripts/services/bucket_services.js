@@ -14,20 +14,24 @@ const storage = Storage({
 const bucket = storage.bucket(CLOUD_BUCKET);
 
 function sendUploadToGCS(req, res, next) {
-    var file = bucket.file(req.body['picture_id'] + '.jpeg');
-    
+    var rawData = req.body['picture'];
+    var imageType = rawData.substring(0, rawData.indexOf(';base64')).split(':')[1];
+    var fileName = req.body['picture_id'] + '.' + imageType.split('/')[1];
+
+    rawData = rawData.substring(rawData.indexOf(';base64') + 8, rawData.length);
+
+    var file = bucket.file(fileName);
+
     var bufferStream = new stream.PassThrough();
-    bufferStream.end(new Buffer(req.body['picture'], 'base64'));
+    bufferStream.end(new Buffer(rawData, 'base64'));
     bufferStream.pipe(file.createWriteStream({
         metadata: {
-            contentType: 'image/jpeg'
+            contentType: imageType
         },
         public: false,
         validation: "md5"
     }));
 }
-
-
 
 module.exports = {
     sendUploadToGCS
