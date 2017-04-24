@@ -34,16 +34,18 @@ function findBy(entityName, field, value) {
 }
 
 function findById(entityName, id) {
-    const query = datastore.createQuery(entityName).filter('__key__', '=', datastore.key([entityName, id])).limit(1);
+    var key = datastore.key([entityName, Number.parseInt(id)]);
 
-    return datastore.runQuery(query).then((result) => {
-        var entities = results[0];
+    return datastore.get(key).then((result) => {
+        var entity = result[0];
 
-        entities.forEach((entity) => entity.id = entity[datastore.KEY].id);
+        if (entity) {
+            entity.id = entity[datastore.KEY].id;
+            return entity;
+        }
 
-        return entities;
+        return null;
     });
-
 }
 
 module.exports = {

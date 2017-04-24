@@ -64,6 +64,15 @@ function getNotesFromUser(req, res) {
 
 function getNoteDetail(req, res) {
     datastore.findById('Note', req.params.note).then((note) => {
+        if (!note) {
+            res.json(404, 'No note found!');
+            return;
+        }
+
+        if (note.hasMedia) {
+            console.log('retrieving image');
+        }
+
         res.json(note);
     });
 }
