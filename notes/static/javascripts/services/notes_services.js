@@ -54,9 +54,8 @@ function createNote(req, res) {
 }
 
 function getNotesFromUser(req, res) {
-    // var userId = req.params.user;
-    var userId = 'CjcR83yDSjM1wfJIaMJ0x2neKXZ2'
-
+    var userId = req.params.user;
+    
     datastore.findBy('Note', 'user', userId).then((entities) => {
         res.json(entities);
     });

@@ -4,11 +4,11 @@ const config = require('../../../config');
 const Storage = require('@google-cloud/storage');
 const stream = require('stream');
 
-const CLOUD_BUCKET = config.get('CLOUD_BUCKET');
+const CLOUD_BUCKET = config.CLOUD_BUCKET;
 
 const storage = Storage({
-    projectId: config.get('GCLOUD_PROJECT'),
-    keyFilename: config.get('KEYFILE')
+    projectId: config.GCLOUD_PROJECT,
+    keyFilename: config.KEYFILE
 });
 
 const bucket = storage.bucket(CLOUD_BUCKET);

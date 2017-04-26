@@ -3,8 +3,8 @@
 const config = require('../../config');
 
 var datastore = require('@google-cloud/datastore')({
-    projectId: config.get('GCLOUD_PROJECT'),
-    keyFilename: config.get('KEYFILE')
+    projectId: config.GCLOUD_PROJECT,
+    keyFilename: config.KEYFILE
 });
 
 function save(entityName, entity) {
