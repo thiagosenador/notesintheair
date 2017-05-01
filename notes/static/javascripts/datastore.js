@@ -26,9 +26,7 @@ function findBy(entityName, field, value) {
 
     return datastore.runQuery(query).then((results) => {
         var entities = results[0];
-
         entities.forEach((entity) => entity.id = entity[datastore.KEY].id);
-
         return entities;
     });
 }

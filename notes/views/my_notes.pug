@@ -3,16 +3,18 @@ extends layout
 block content
     h1 my notes
 
-    each note in notes
-        .mdl-grid.site-max-width
-            .mdl-cell.mdl-cell--12-col.mdl-shadow--4dp.page-content
-                .mdl-card__title
-                    h1.mdl-card__title-text #{note.content}
-                .mdl-card__media
-                .mdl-grid
-                     .mdl-card__supporting-text
-                        - var noteDate = new Date(note.date).toLocaleDateString()
-                        - var noteTime = new Date(note.date).toLocaleTimeString()
-                        p #{noteDate} - #{noteTime}
-                        p #{note.location}
-                .mdl-card__actions.mdl-card--border
+    p #{notes}
+
+    //- each note in notes
+    //-     .mdl-grid.site-max-width
+    //-         .mdl-cell.mdl-cell--12-col.mdl-shadow--4dp.page-content
+    //-             .mdl-card__title
+    //-                 h1.mdl-card__title-text #{note.content}
+    //-             .mdl-card__media
+    //-             .mdl-grid
+    //-                  .mdl-card__supporting-text
+    //-                     - var noteDate = new Date(note.date).toLocaleDateString()
+    //-                     - var noteTime = new Date(note.date).toLocaleTimeString()
+    //-                     p #{noteDate} - #{noteTime}
+    //-                     p #{note.location}
+    //-             .mdl-card__actions.mdl-card--border

@@ -7,14 +7,15 @@ const config = require('./config.js');
 
 const bodyParser = require('body-parser');
 
-const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const cookieParser = require('cookie-parser');
+const FirebaseStore = require('connect-session-firebase')(session);
 
 const admin = require('firebase-admin');
 
 var serviceAccount = require("./private/notesintheair_key.json");
 
-admin.initializeApp({
+const ref = admin.initializeApp({
 	credential: admin.credential.cert(serviceAccount),
 	databaseURL: "https://notesintheair-160023.firebaseio.com"
 });
@@ -30,16 +31,23 @@ app.use(logger('dev'));
 app.use(bodyParser.json({ limit: '2mb' }));
 app.use(bodyParser.urlencoded({ extended: false, limit: '2mb' }));
 
-app.use(cookieParser());
-app.use(session({
-	secret: 'n0tesa1r',
+const sessionConfig = {
+	store: new FirebaseStore({
+		database: ref.database()
+	}),
 	resave: false,
 	saveUninitialized: false,
-	cookie: {
-		maxAge: 36000000,
-		httpOnly: true
-	}
-}));
+	secret: 'n0tesa1r'
+};
+
+// if (config.NODE_ENV === 'production' && config.MEMCACHE_URL) {
+// 	sessionConfig.store = new MemcachedStore({
+// 		hosts: [config.MEMCACHE_URL]
+// 	});
+// }
+
+// app.use(cookieParser());
+app.use(session(sessionConfig));
 
 app.use(express.static(path.join(__dirname, 'static')));
 app.use('/bower_components', express.static(__dirname + '/bower_components'))

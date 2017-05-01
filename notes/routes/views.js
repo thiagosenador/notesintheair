@@ -35,12 +35,18 @@ router.get('/create_note', function (req, res, next) {
 });
 
 router.get('/my_notes', function (req, res, next) {
-    var client = http.createClient(config.PORT, config.HOST);
-    var api = client.request('GET', '/api/v1/my_notes/' + req.session.user.uid);
+    var options = {
+        port: config.PORT,
+        host: config.HOST,
+        method: 'GET',
+        path: '/api/v1/my_notes/' + req.session.user.uid
+    }
+
+    var api = http.request(options);
     api.end();
     api.on('response', function (result) {
         result.on('data', function (chunk) {
-            res.render('my_notes', { notes: JSON.parse(chunk) });
+            res.render('my_notes', { notes: chunk });
         });
     });
 });

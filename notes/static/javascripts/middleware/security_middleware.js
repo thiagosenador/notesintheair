@@ -52,6 +52,11 @@ function login(req, res, next) {
     var user = req.body.user;
 
     if (user) {
+        if (req.session && req.session.user) {
+            res.sendStatus(200);
+            return;
+        }
+
         req.session.user = user;
         req.session.save();
         res.sendStatus(200);
