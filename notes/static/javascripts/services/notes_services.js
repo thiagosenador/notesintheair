@@ -31,8 +31,7 @@ function createNote(req, res) {
             },
             {
                 name: 'date',
-                value: Date.now(),
-                excludeFromIndexes: true
+                value: Date.now()
             },
             {
                 name: 'hasMedia',
@@ -55,8 +54,8 @@ function createNote(req, res) {
 
 function getNotesFromUser(req, res) {
     var userId = req.params.user;
-    
-    datastore.findBy('Note', 'user', userId).then((entities) => {
+
+    datastore.findNotesFromUser(userId, function (err, entities) {
         res.json(entities);
     });
 }
@@ -69,7 +68,7 @@ function getNoteDetail(req, res) {
         }
 
         if (note.hasMedia) {
-            console.log('retrieving image');
+            bucketServices.getFileFromGCS(req, res);
         }
 
         res.json(note);

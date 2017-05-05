@@ -59,14 +59,20 @@ function login(req, res, next) {
 
         req.session.user = user;
         req.session.save();
+
         res.sendStatus(200);
     } else {
         res.sendStatus(401);
     }
 }
 
+function logout(req, res, next) {
+    req.session.destroy();
+}
+
 module.exports = {
     validateApiRequest,
     validateViewRequests,
-    login
+    login,
+    logout
 };

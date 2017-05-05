@@ -21,13 +21,12 @@ function save(entityName, entity) {
         });
 }
 
-function findBy(entityName, field, value) {
-    const query = datastore.createQuery(entityName).filter(field, '=', value);
+function findNotesFromUser(user, cb) {
+    const query = datastore.createQuery('Note').filter('user', '=', user);
 
-    return datastore.runQuery(query).then((results) => {
-        var entities = results[0];
+    return datastore.runQuery(query, function (err, entities) {
         entities.forEach((entity) => entity.id = entity[datastore.KEY].id);
-        return entities;
+        cb(err, entities);
     });
 }
 
@@ -48,6 +47,6 @@ function findById(entityName, id) {
 
 module.exports = {
     save,
-    findBy,
+    findNotesFromUser,
     findById
 }

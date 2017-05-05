@@ -23,6 +23,22 @@ html
       
       firebase.initializeApp(config);
 
+      function logout() {
+        firebase.auth().signOut().then(function() {
+          var xhr = new XMLHttpRequest();
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+              window.location = '/';
+            }
+          }
+          xhr.open('GET', '/logout', true);
+          xhr.send();
+        }).
+        catch(function(error) {
+          console.log(error);
+        });
+      }
+
   body
     .mdl-layout.mdl-js-layout.mdl-layout--fixed-header
       header.mdl-layout__header.mdl-layout__header--waterfall.site-header
@@ -34,10 +50,12 @@ html
           nav.mdl-navigation.mdl-typography--body-1-force-preferred-font
             a.mdl-navigation__link(href='/create_note') create note
             a.mdl-navigation__link(href='/my_notes') my notes
+            a.mdl-navigation__link(href='#' onclick='logout()') logout
       .mdl-layout__drawer.mdl-layout--small-screen-only
         nav.mdl-navigation.mdl-typography--body-1-force-preferred-font
           a.mdl-navigation__link(href='/create_note') create note
           a.mdl-navigation__link(href='/my_notes') my notes
+          a.mdl-navigation__link(href='#' onclick='logout()') logout
 
       main.mdl-layout__content
         .site-content

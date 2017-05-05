@@ -3,12 +3,12 @@
 const express = require('express');
 const path = require('path');
 const logger = require('morgan');
+
 const config = require('./config.js');
 
 const bodyParser = require('body-parser');
 
 const session = require('express-session');
-const cookieParser = require('cookie-parser');
 const FirebaseStore = require('connect-session-firebase')(session);
 
 const admin = require('firebase-admin');
@@ -37,32 +37,14 @@ const sessionConfig = {
 	}),
 	resave: false,
 	saveUninitialized: false,
-	secret: 'n0tesa1r'
+	secret: 'n0tesa1r',
+	
 };
 
-// if (config.NODE_ENV === 'production' && config.MEMCACHE_URL) {
-// 	sessionConfig.store = new MemcachedStore({
-// 		hosts: [config.MEMCACHE_URL]
-// 	});
-// }
-
-// app.use(cookieParser());
 app.use(session(sessionConfig));
 
 app.use(express.static(path.join(__dirname, 'static')));
 app.use('/bower_components', express.static(__dirname + '/bower_components'))
-
-app.all('/*', function (req, res, next) {
-	// CORS headers
-	res.header("Access-Control-Allow-Origin", "*");
-	res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-	res.header('Access-Control-Allow-Headers', 'Content-type,Accept,X-Access-Token,X-Key');
-	if (req.method == 'OPTIONS') {
-		res.status(200).end();
-	} else {
-		next();
-	}
-});
 
 app.use(require('./routes/views'));
 app.use(require('./routes/apis'));

@@ -9,7 +9,11 @@ const securityMiddleware = require('../static/javascripts/middleware/security_mi
 
 /* index page */
 router.get('/', function (req, res, next) {
-    res.render('index');
+    if (req.session && req.session.user) {
+        res.render('home');
+    } else {
+        res.render('index');
+    }
 });
 
 /* login page */
@@ -19,7 +23,8 @@ router.get('/login', function (req, res, next) {
 
 /* logout page */
 router.get('/logout', function (req, res, next) {
-    res.render('index');
+    securityMiddleware.logout(req, res, next);
+    res.sendStatus(200);
 });
 
 //router.get('/*', securityMiddleware.validateViews);
@@ -44,9 +49,28 @@ router.get('/my_notes', function (req, res, next) {
 
     var api = http.request(options);
     api.end();
+    
     api.on('response', function (result) {
-        result.on('data', function (chunk) {
-            res.render('my_notes', { notes: chunk });
+        result.on('data', function (data) {
+            res.render('my_notes', { notes: JSON.parse(data) });
+        });
+    });
+});
+
+router.get('/note_detail/:note', function (req, res, next) {
+    var options = {
+        port: config.PORT,
+        host: config.HOST,
+        method: 'GET',
+        path: '/api/v1/note_detail/' + req.params.note
+    }
+
+    var api = http.request(options);
+    api.end();
+
+    api.on('response', function (result) {
+        result.on('data', function (data) {
+            res.render('note_detail', { note: JSON.parse(data) });
         });
     });
 });
