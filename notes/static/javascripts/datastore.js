@@ -4,7 +4,7 @@ const config = require('../../config');
 
 var datastore = require('@google-cloud/datastore')({
     projectId: config.GCLOUD_PROJECT,
-    keyFilename: config.KEYFILE
+    keyFilename: config.KEY_FILE
 });
 
 function save(entityName, entity) {
@@ -30,15 +30,24 @@ function findNotesFromUser(user, cb) {
     });
 }
 
-function findById(entityName, id) {
-    var key = datastore.key([entityName, Number.parseInt(id)]);
+function findNoteById(id) {
+    var key = datastore.key(['Note', Number.parseInt(id)]);
 
     return datastore.get(key).then((result) => {
-        var entity = result[0];
+        var note = result[0];
 
-        if (entity) {
-            entity.id = entity[datastore.KEY].id;
-            return entity;
+        if (note) {
+            note.id = note[datastore.KEY].id;
+
+            var query = datastore.createQuery('Comment').filter('note', '=', note.id);
+
+            datastore.runQuery(query, function (err, comments) {
+                if (comments.length > 0) {
+                    note['comments'] = comments;
+                }
+
+                return note;
+            });
         }
 
         return null;
@@ -48,5 +57,5 @@ function findById(entityName, id) {
 module.exports = {
     save,
     findNotesFromUser,
-    findById
+    findNoteById
 }

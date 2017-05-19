@@ -1,68 +1,45 @@
 (function () {
 
-    var map_element = document.getElementById('map');
     if (navigator.geolocation) {
         var position = navigator.geolocation.getCurrentPosition(loadMap);
-    } else {
-        map_element.innerHTML = "Geolocation is not supported by this browser.";
     }
 
-    //Lets load the mop using the position
     function loadMap(position) {
-        var latitude = position.coords.latitude;
-        var longitude = position.coords.longitude;
+        var lat = position.coords.latitude;
+        var lng = position.coords.longitude;
 
-        var myLatlng = new google.maps.LatLng(latitude, longitude);
+        var query = 'https://maps.googleapis.com/maps/api/staticmap?markers=color:red%7C{0},{1}&zoom=16&size=600x300&maptype=roadmap&key=AIzaSyDgPuoKOXkzo3_Pvir_Ocn7cosZ1cTCZfU&path=weight:0|fillcolor:orange';
+        query = query.replace('{0}', lat).replace('{1}', lng);
 
-        //Initializing the options for the map
-        var myOptions = {
-            center: myLatlng,
-            zoom: 15,
-            mapTypeId: google.maps.MapTypeId.ROADMAP,
-            streetViewControl: false,
-            mapTypeControl: false
-        };
+        var rad = 200;
+        var detail = 8;
+        var r = 6371;
 
-        //Creating the map in teh DOM
-        var map_element = document.getElementById('note-maps');
-        var map = new google.maps.Map(map_element, myOptions);
+        var pi = Math.PI;
 
-        //Adding markers to it
-        var marker = new google.maps.Marker({
-            position: myLatlng,
-            map: map,
-            title: 'You are here'
-        });
+        var _lat = (lat * pi) / 180;
+        var _lng = (lng * pi) / 180;
+        var d = (rad / 1000) / r;
 
-        circle = new google.maps.Circle({
-            strokeColor: '#FF0000',
-            strokeOpacity: 0.8,
-            strokeWeight: 1,
-            fillColor: '#FF0000',
-            fillOpacity: 0.35,
-            map: map,
-            center: myLatlng,
-            radius: 200
-        });
+        var i = 0;
 
-        circle.setMap(map);
+        for (i = 0; i <= 360; i += detail) {
+            var brng = i * pi / 180;
 
-        // //Adding the Marker content to it
-        // var infowindow = new google.maps.InfoWindow({
-        //     content: "<h2>You are here :)</h2>",
-        //     //Settingup the maxwidth
-        //     maxWidth: 300
-        // });
+            var pLat = Math.asin(Math.sin(_lat) * Math.cos(d) + Math.cos(_lat) * Math.sin(d) * Math.cos(brng));
+            var pLng = ((_lng + Math.atan2(Math.sin(brng) * Math.sin(d) * Math.cos(_lat), Math.cos(d) - Math.sin(_lat) * Math.sin(pLat))) * 180) / pi;
+            pLat = (pLat * 180) / pi;
 
-        // //Event listener to trigger the marker content
-        // google.maps.event.addListener(marker, 'click', function () {
-        //     infowindow.open(map, marker);
-        // });
+            query += "|" + pLat + "," + pLng;
+        }
+
+        var imgElement = document.getElementById('mapImg');
+        imgElement.src = query;
 
         var lat_field = document.getElementById('latTxt');
-        lat_field.value = latitude;
+        lat_field.value = lat;
 
         var lng_field = document.getElementById('lngTxt');
-        lng_field.value = longitude;
+        lng_field.value = lng;
     }
 }());

@@ -10,8 +10,7 @@ function createNote(req, res) {
         var note = [
             {
                 name: 'content',
-                value: req.body['note'],
-                excludeFromIndexes: true
+                value: req.body['note']
             },
             {
                 name: 'user',
@@ -35,8 +34,7 @@ function createNote(req, res) {
             },
             {
                 name: 'hasMedia',
-                value: req.body['picture'] ? true : false,
-                excludeFromIndexes: true
+                value: req.body['picture'] ? true : false
             }
         ];
 
@@ -61,14 +59,14 @@ function getNotesFromUser(req, res) {
 }
 
 function getNoteDetail(req, res) {
-    datastore.findById('Note', req.params.note).then((note) => {
+    datastore.findNoteById(req.params.note).then((note) => {
         if (!note) {
             res.json(404, 'No note found!');
             return;
         }
 
         if (note.hasMedia) {
-            bucketServices.getFileFromGCS(req, res);
+            note['media'] = 'https://storage.cloud.google.com/notes_media/' + req.params.note + '.jpeg';
         }
 
         res.json(note);

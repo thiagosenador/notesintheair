@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "notesintheair-160023",
+  "private_key_id": "a748d29ba2a8a043135919d5982701c2863c4823",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQCxUx3pVBg3be5k\nt0jyV+icHVp0vxeWetn4Vkg9mjEly8IO16xbTdzfkdXBeZgcUM3harkBFWbFiqij\ns1w5Q/LcSy7gno2JHX9etJwU6S8CFNbXnZ/1mEAxLC44p1KEhuGHPyVI1pU6FnEr\naJkmWNYlo4BSRllgc5hYAT0IaXOf6wqhappMGAUZHy61DI5F5sZ4+wzy/35rJEk7\nsH+j2N3Lv/LM41WEmFNc6a7XK9uY+phwkUdXzHpY2QSY357Dn6bXPdME5nItfmdA\n9z/I9dTsxzk71K7IFOvMYmUxwzWt8QKuWKsx9Bl5y5jycHZ+EBssjsPuVIhlisO6\nD27ilBjrAgMBAAECggEAFCpso2VR37PbwY5qeEzxAhgAenhk2VMdSLWfP4oyfqbe\nacuzKSsArFgsY/VNDCNQVotJgMsLRfnP1dYG7ehBTTYrnZXKaMZ2/rExcttV4jm2\neQzO7SIkYrMwinbU1od0TGos9kyY6eM1eYdKq2a868jdRf4EGgjrUU7KvxMm+A+V\nTu4SYoivu20i9w/kPVoAV+jsK8AuL6IYugMb2TXO5D1YuZBCZDNN6pViiEGZBK36\n5J1Fo2EVP98RneYKSqKwne9L/SVC8Y2CAFse8j26RL6efus2PACKcfTF2J4eSIRZ\nnWGGGausBWfkDpyel1bfamlPuOsp0x+L8xtdKUilcQKBgQDWHBytSoY5maEpzXtT\nnNVkg1lELOUpiURdTSQYqe5Jq9b8GDStDcQdXXZMUJOQiFjHvAwmGrnpnMhE6kb8\ncXuN8hw0jV6ub2q3D/gf06mKpDpoyAexQmf4g0GoeCLaGyEEpIJ7TTmr3bFzr456\ng5BryfEK8C57y7y2O5V6vCO2mQKBgQDUBJZSYeFn4hyPDDjfzNEGHUuin7BnF+39\n/tXYJNRaAVTjXuFKF8M0UZFeAQsK26HdQZ5Mdgg0cQmEz0YE6ZWlHm1/Zo20MF+d\nKr2uLulq3S4kLPvnvOGo+PwydWlM4oOHIgNoWxnthW9iAbNDZABumBJmcfnZ9g1s\nYHHoLLJyIwKBgQCS7wHjDoSknMCT/nbG/5cV/mnRNnohkhj/aoP+BQgJOMs1f6sO\no6bVfCFF5/oMsvUyROOVdrvlDPoHCTuj3IEs/VzL18SFMuLqNCRUOx5bja6j37of\ntHHDgtgZNDC+uuVi2T7OPUX5ow83U+AURZtjzVcE6aUMwdmEuckwTFK56QKBgQCN\nv6Ng4N/6vEmrudgsiJsXI272Ax3FT1JmhoIiSD1RD6LZgQ3Oo6R2zjIKT1g6oizN\n6JkVNbS2mvxqNsnxbtoF0xoSG1aSKeVDBthaJDMap1W6CflBLh8RAaZbdfQ42xhk\nuHDezEnBa3zUYZ6gZ7OCPVnP9FO/Taob0z9Uos2LUQKBgQDUBHwhtI5Y3igivlPf\n/s1ZElwXfokEOol3aFbjrmiQc2Isi3Km/ye5OA5gRnZi0V4TMFR8JMihqyRc4pNG\n2Dw2GEMbGYq7Mhdo8GYzP/kCUo4aS/Azpagi63aysGTgSslz9Mqfuq40xo99uogp\nGtq3OU+xDhfYuk620V7dBac+qA==\n-----END PRIVATE KEY-----\n",
+  "client_email": "storage@notesintheair-160023.iam.gserviceaccount.com",
+  "client_id": "114630681284117147757",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/storage%40notesintheair-160023.iam.gserviceaccount.com"
+}

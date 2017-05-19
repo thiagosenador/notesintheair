@@ -32,14 +32,6 @@ img {
   display: none;
 }
 
-.site-logo-row {
-  min-height: 200px;
-}
-
-.is-compact .site-logo-row {
-  min-height: auto;
-}
-
 .site-logo {
   background: url(../img/site-logo.png) 50% no-repeat;
   background-size: cover;

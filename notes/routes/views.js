@@ -39,6 +39,7 @@ router.get('/create_note', function (req, res, next) {
     res.render('create_note');
 });
 
+
 router.get('/my_notes', function (req, res, next) {
     var options = {
         port: config.PORT,

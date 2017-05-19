@@ -9,7 +9,8 @@ module.exports = {
     OAUTH2_CALLBACK: 'http://localhost:8080/auth/google/callback',
     PORT: 5000,
     SECRET: 'keyboardcat',
-    KEYFILE: './private/notesintheair_key.json',
+    KEY_FILE: './private/notesintheair_key.json',
+    STORAGE_KEY_FILE: './private/storage_key.json',
     HOST: 'localhost',
     MEMCACHE_URL: 'memcache:11211'
 };

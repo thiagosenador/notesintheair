@@ -6,8 +6,7 @@ function commentNote(req, res) {
     var comment = [
         {
             name: 'comment',
-            value: req.body['comment'],
-            excludeFromIndexes: true
+            value: req.body['comment']
         },
         {
             name: 'user',
@@ -15,8 +14,11 @@ function commentNote(req, res) {
         },
         {
             name: 'date',
-            value: Date.now(),
-            excludeFromIndexes: true
+            value: Date.now()
+        },
+        {
+            name: 'note',
+            value: req.body['note']
         }
     ];
 

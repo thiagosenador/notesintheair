@@ -1,19 +1,16 @@
 extends layout
 
 block content
-    h1 #{note.content}
-
     .mdl-grid.site-max-width
-        a(href='/get_note/' + note.id)
-            .mdl-cell.mdl-cell--12-col.mdl-shadow--4dp.page-content
-                .mdl-card__title
-                    h1.mdl-card__title-text #{note.content}
-                .mdl-card__media
-                .mdl-grid
-                    .mdl-card__supporting-text
-                        - var noteDate = new Date(note.date).toLocaleDateString()
-                        - var noteTime = new Date(note.date).toLocaleTimeString()
-                        p #{noteDate} - #{noteTime}
-                        p #{note.location}
-                        if note.hasMedia
-                            i.material-icons photo
+        .mdl-cell.mdl-cell--12-col.mdl-shadow--4dp.page-content
+            .mdl-card__title
+                h1.mdl-card__title-text #{note.content}
+            .mdl-card__media
+            .mdl-grid
+                .mdl-card__supporting-text
+                    - var noteDate = new Date(note.date).toLocaleDateString()
+                    - var noteTime = new Date(note.date).toLocaleTimeString()
+                    p #{noteDate} - #{noteTime}
+                    p #{note.location}
+                    if note.hasMedia
+                        img(src=note.media)
