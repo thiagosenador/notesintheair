@@ -76,4 +76,22 @@ router.get('/note_detail/:note', function (req, res, next) {
     });
 });
 
+router.get('/notes_here/:lat,:lng', function (req, res, next) {
+    var options = {
+        port: config.PORT,
+        host: config.HOST,
+        method: 'GET',
+        path: `/api/v1/notes_here/${req.params.lat},${req.params.lng}`
+    }
+
+    var api = http.request(options);
+    api.end();
+
+    api.on('response', function (result) {
+        result.on('data', function (data) {
+            res.render('notes_here', { notes: JSON.parse(data) });
+        });
+    });
+});
+
 module.exports = router;

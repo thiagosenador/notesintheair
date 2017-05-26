@@ -73,8 +73,25 @@ function getNoteDetail(req, res) {
     });
 }
 
+function getNotesHere(req, res) {
+    var lat = req.params.lat;
+    var lng = req.params.lng;
+
+    var R = 6378.137; // Radius of earth in KM
+
+    var right = lat + (0.2 / R) * (180 / Math.PI);
+    var left = lat + (-0.2 / R) * (180 / Math.PI);
+    var bottom = lng + (-0.2 / R) * (180 / Math.PI) / Math.cos(lat * Math.PI / 180);
+    var top = lng + (0.2 / R) * (180 / Math.PI) / Math.cos(lat * Math.PI / 180);
+
+    datastore.findNotesHere(top, bottom, left, right).then((notes) => {
+        res.json(notes);
+    });
+}
+
 module.exports = {
     createNote,
     getNotesFromUser,
-    getNoteDetail
+    getNoteDetail,
+    getNotesHere
 }

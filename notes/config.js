@@ -12,5 +12,6 @@ module.exports = {
     KEY_FILE: './private/notesintheair_key.json',
     STORAGE_KEY_FILE: './private/storage_key.json',
     HOST: 'localhost',
-    MEMCACHE_URL: 'memcache:11211'
+    MEMCACHE_URL: 'memcache:11211',
+    SEARCH_RADIUS: 200
 };

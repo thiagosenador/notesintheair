@@ -1,16 +1,26 @@
 extends layout
 
 block content
-    .mdl-grid.site-max-width
-        .mdl-cell.mdl-cell--12-col.mdl-shadow--4dp.page-content
-            .mdl-card__title
+    .mdl-grid
+        .mdl-cell.mdl-cell--12-col.mdl-shadow--4dp
+            .mdl-card__title.mdl-card--expand
                 h1.mdl-card__title-text #{note.content}
             .mdl-card__media
+                 if note.hasMedia
+                        img(src=note.media)
             .mdl-grid
                 .mdl-card__supporting-text
                     - var noteDate = new Date(note.date).toLocaleDateString()
                     - var noteTime = new Date(note.date).toLocaleTimeString()
                     p #{noteDate} - #{noteTime}
                     p #{note.location}
-                    if note.hasMedia
-                        img(src=note.media)
+                
+                ul.mdl-list
+                    each comment in note.comments
+                        li.mdl-list__item.mdl-list__item--two-line
+                            span.mdl-list__item-primary-content
+                                i.material-icons.mdl-list__item-avatar person
+                                span #{comment.comment}
+                                span.mdl-list__item-sub-title #{comment.user}
+                                span.mdl-list__item-sub-title #{comment.date}
+                

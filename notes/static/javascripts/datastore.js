@@ -31,31 +31,44 @@ function findNotesFromUser(user, cb) {
 }
 
 function findNoteById(id) {
+    // TODO FIND A BETTER WAY TO PASS NOTE.ID TO FIND COMMENTS
     var key = datastore.key(['Note', Number.parseInt(id)]);
 
+    var note = null;
+
     return datastore.get(key).then((result) => {
-        var note = result[0];
+        note = result[0];
 
         if (note) {
             note.id = note[datastore.KEY].id;
-
-            var query = datastore.createQuery('Comment').filter('note', '=', note.id);
-
-            datastore.runQuery(query, function (err, comments) {
-                if (comments.length > 0) {
-                    note['comments'] = comments;
-                }
-
-                return note;
-            });
         }
+    }).then(() => {
+        var query = datastore.createQuery('Comment').filter('note', '=', Number.parseInt(note.id));
 
-        return null;
+        return datastore.runQuery(query).then((results) => {
+            if (results[0].length > 0) {
+                note['comments'] = results[0];
+            }
+
+            return note;
+        });
     });
 }
+
+function findNotesHere(top, bottom, left, right) {
+    const query = datastore.createQuery('Note');
+
+    return datastore.runQuery(query).then((results) => {
+        var entities = results[0];
+        entities.forEach((entity) => entity.id = entity[datastore.KEY].id);
+        return entities;
+    });
+}
+
 
 module.exports = {
     save,
     findNotesFromUser,
-    findNoteById
+    findNoteById,
+    findNotesHere
 }

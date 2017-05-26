@@ -15,36 +15,27 @@
         function loadMap(position) {
             var lat = position.coords.latitude;
             var lng = position.coords.longitude;
+            var R = 6378.137; // Radius of earth in KM
 
-            var query = 'https://maps.googleapis.com/maps/api/staticmap?markers=color:red%7C{0},{1}&zoom=16&size=600x300&maptype=roadmap&key=AIzaSyDgPuoKOXkzo3_Pvir_Ocn7cosZ1cTCZfU&path=weight:0|fillcolor:orange';
-            query = query.replace('{0}', lat).replace('{1}', lng);
+            var top_lat = lat + (0.2 / R) * (180 / Math.PI);
+            var top_lng = lng + (0 / R) * (180 / Math.PI) / Math.cos(lat * Math.PI / 180);
 
-            var rad = 200;
-            var detail = 8;
-            var r = 6371;
+            var bottom_lat = lat + (-0.2 / R) * (180 / Math.PI);
+            var bottom_lng = lng + (0 / R) * (180 / Math.PI) / Math.cos(lat * Math.PI / 180);
 
-            var pi = Math.PI;
+            var left_lat = lat + (0 / R) * (180 / Math.PI);
+            var left_lng = lng + (-0.2 / R) * (180 / Math.PI) / Math.cos(lat * Math.PI / 180);
 
-            var _lat = (lat * pi) / 180;
-            var _lng = (lng * pi) / 180;
-            var d = (rad / 1000) / r;
+            var right_lat = lat + (0 / R) * (180 / Math.PI);
+            var right_lng = lng + (0.2 / R) * (180 / Math.PI) / Math.cos(lat * Math.PI / 180);
 
-            var i = 0;
+            console.log(top_lat + " " + top_lng);
+            console.log(bottom_lat + " " + bottom_lng);
+            console.log(left_lat + " " + left_lng);
+            console.log(right_lat + " " + right_lng);
+            console.log(lat + " " + lng);
 
-            for (i = 0; i <= 360; i += detail) {
-                var brng = i * pi / 180;
 
-                var pLat = Math.asin(Math.sin(_lat) * Math.cos(d) + Math.cos(_lat) * Math.sin(d) * Math.cos(brng));
-                var pLng = ((_lng + Math.atan2(Math.sin(brng) * Math.sin(d) * Math.cos(_lat), Math.cos(d) - Math.sin(_lat) * Math.sin(pLat))) * 180) / pi;
-                pLat = (pLat * 180) / pi;
-
-                query += "|" + pLat + "," + pLng;
-            }
-
-            var imgElement = document.getElementById('testImg');
-            imgElement.src = query;
-
-            console.log(imgElement.src);
         }
     </script>
 

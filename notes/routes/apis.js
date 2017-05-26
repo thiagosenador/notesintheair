@@ -12,6 +12,7 @@ router.post('/login', securityMiddleware.login);
 router.post('/api/v1/create_note', notesService.createNote);
 router.get('/api/v1/my_notes/:user', notesService.getNotesFromUser);
 router.get('/api/v1/note_detail/:note', notesService.getNoteDetail);
+router.get('/api/v1/notes_here/:lat,:lng', notesService.getNotesHere);
 
 router.post('/api/v1/comment_note', commentService.commentNote);
 

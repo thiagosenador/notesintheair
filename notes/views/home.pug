@@ -17,3 +17,13 @@ block content
             .mdl-card__supporting-text where are my notes
             .mdl-card__actions.mdl-card--border
                 a.mdl-button.mdl-button--colored.mdl-js-button.mdl-js-ripple-effect.mdl-button--accent(href = '/my_notes') my notes
+    
+    .mdl-grid.site-max-width
+        .mdl-cell.mdl-cell--12-col.mdl-card.mdl-shadow--4dp
+            .mdl-card__title
+                h2.mdl-card__title-text notes here
+            .mdl-card__supporting-text which notes are here?
+            .mdl-card__actions.mdl-card--border
+                a.mdl-button.mdl-button--colored.mdl-js-button.mdl-js-ripple-effect.mdl-button--accent#notesHereLink(href = '/notes_here/') notes here
+
+    script(src='javascripts/controllers/home_controller.js')
