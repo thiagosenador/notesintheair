@@ -8,7 +8,7 @@
         var lat = position.coords.latitude;
         var lng = position.coords.longitude;
 
-        var query = 'https://maps.googleapis.com/maps/api/staticmap?markers=color:red%7C{0},{1}&zoom=16&size=600x300&maptype=roadmap&key=AIzaSyDgPuoKOXkzo3_Pvir_Ocn7cosZ1cTCZfU&path=weight:0|fillcolor:orange';
+        var query = 'https://maps.googleapis.com/maps/api/staticmap?markers=color:red%7C{0},{1}&zoom=16&size=400x300&maptype=roadmap&key=AIzaSyDgPuoKOXkzo3_Pvir_Ocn7cosZ1cTCZfU&path=weight:0|fillcolor:orange';
         query = query.replace('{0}', lat).replace('{1}', lng);
 
         var rad = 200;

@@ -20,7 +20,8 @@ block content
                     };
 
                     var map = new google.maps.Map(document.getElementById('map'), {
-                        zoom: 16
+                        zoom: 16,
+                        disableDefaultUI: true
                     });
 
                     map.setCenter(pos);
@@ -42,6 +43,17 @@ block content
                             map: map
                         });
                     }
+
+                    var cityCircle = new google.maps.Circle({
+                        strokeColor: '#FF0000',
+                        strokeOpacity: 0.8,
+                        strokeWeight: 1,
+                        fillColor: '#FF0000',
+                        fillOpacity: 0.35,
+                        map: map,
+                        center: pos,
+                        radius: 200
+                    });
                 });
             }
         }
