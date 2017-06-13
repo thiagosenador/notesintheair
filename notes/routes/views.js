@@ -4,8 +4,10 @@ const express = require('express');
 const router = express.Router();
 const config = require('../config.js');
 
-const http = require('http');
+const request = require('request');
 const securityMiddleware = require('../static/javascripts/middleware/security_middleware');
+
+const endpoint = `http://${config.HOST}:${config.PORT}`;
 
 /* index page */
 router.get('/', function (req, res, next) {
@@ -36,61 +38,51 @@ router.get('/home', function (req, res, next) {
 
 /* views */
 router.get('/create_note', function (req, res, next) {
-    res.render('create_note');
+    res.render('create_note', { user: req.session.user.uid });
 });
 
 
 router.get('/my_notes', function (req, res, next) {
-    var options = {
-        port: config.PORT,
-        host: config.HOST,
-        method: 'GET',
-        path: '/api/v1/my_notes/' + req.session.user.uid
-    }
+    const api = `${endpoint}/api/v1/my_notes/${req.session.user.uid}`;
 
-    var api = http.request(options);
-    api.end();
-    
-    api.on('response', function (result) {
-        result.on('data', function (data) {
-            res.render('my_notes', { notes: JSON.parse(data) });
-        });
+    request.get(api, function (error, response, body) {
+        res.render('my_notes', { notes: JSON.parse(body) });
     });
 });
 
 router.get('/note_detail/:note', function (req, res, next) {
-    var options = {
-        port: config.PORT,
-        host: config.HOST,
-        method: 'GET',
-        path: '/api/v1/note_detail/' + req.params.note
-    }
+    const api = `${endpoint}/api/v1/note_detail/${req.params.note}`;
 
-    var api = http.request(options);
-    api.end();
-
-    api.on('response', function (result) {
-        result.on('data', function (data) {
-            res.render('note_detail', { note: JSON.parse(data) });
-        });
+    request.get(api, function (error, response, body) {
+        res.render('note_detail', { note: JSON.parse(body) });
     });
 });
 
 router.get('/notes_here/:lat,:lng', function (req, res, next) {
-    var options = {
-        port: config.PORT,
-        host: config.HOST,
-        method: 'GET',
-        path: `/api/v1/notes_here/${req.params.lat},${req.params.lng}`
+
+    const api = `${endpoint}/api/v1/notes_here/${req.params.lat},${req.params.lng}`;
+
+    request.get(api, function (error, response, body) {
+        res.render('notes_here', { notes: JSON.parse(body) });
+    });
+});
+
+router.post('/process_note_creation', function (req, res, next) {
+
+    const api = `${endpoint}/api/v1/create_note`;
+
+    req.body['user'] = req.session.user.uid;
+
+    if (req.body['picture']) {
+        req.body['picture'] = `${req.session.user.uid}-${req.body['picture']}`;
     }
 
-    var api = http.request(options);
-    api.end();
-
-    api.on('response', function (result) {
-        result.on('data', function (data) {
-            res.render('notes_here', { notes: JSON.parse(data) });
-        });
+    request.post({
+        headers: { 'content-type': 'application/json' },
+        url: api,
+        form: req.body
+    }, function (error, response, body) {
+        res.render('note_creation_success', { note: JSON.parse(JSON.stringify(req.body)) });
     });
 });
 

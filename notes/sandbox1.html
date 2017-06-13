@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<body id="top">
+    <form name="noteForm" method="post">
+        <input id="file" name="file" type="file" />
+    </form>
+
+    <button onclick="show()">submit</button>
+
+    <script>
+        function show() {
+            var formData = new FormData();
+            formData.append("key", "thiagos-${filename}");
+            formData.append("bucket", "notes_media");
+            formData.append("Content-Type", "image");
+            formData.append("GoogleAccessId", "upload-storage@notesintheair-160023.iam.gserviceaccount.com");
+            formData.append("acl", "bucket-owner-read");
+            formData.append("policy", "eyJleHBpcmF0aW9uIjogIjIwMjAtMDYtMTZUMTE6MTE6MTFaIiwKICJjb25kaXRpb25zIjogWwogIFsic3RhcnRzLXdpdGgiLCAiJGtleSIsICIiIF0sCiAgeyJhY2wiOiAiYnVja2V0LW93bmVyLXJlYWQiIH0sCiAgeyJidWNrZXQiOiAibm90ZXNfbWVkaWEifSwKICBbInN0YXJ0cy13aXRoIiwgIiRDb250ZW50LVR5cGUiLCAiaW1hZ2UiIF0sCiAgXQp9");
+            formData.append("signature", "ID+VfEZTwFfCYI/6qyyv3JXm3326lXc/UMMfNQwkzkWlfcMjbvDEEX+70yhJsJYNzuS4vBVLm8uj9jtaBopYo2oGjDkmKpL/BTpyHz+TqtGCiiwfhs/ce6yxSnj+ltB+HRaHaCGx5c4er5aON+rWohZ9KexmB0Vl4OCEbQ7FvKDT1qL72dq3nUt6vyuFZk00NVX1F9niK24N9mpgp6oKwRvk68XZ98SfiKzKb3xVtetYZQ8+nn0tPQ3b2YLsuvUB6s5HmjzZhKbMMqon+AGxb3OnTEG+gt/GsBoBAeH6QauKlLsrlaBmdxEbRfDl+BcGOGby2pFKxVBeEHoAkT/0+w==");
+            formData.append('file', document.noteForm.elements.file.files[0]);
+
+            var rest = new XMLHttpRequest();
+            rest.open('POST', 'http://notes_media.storage.googleapis.com', true);
+            rest.send(formData);
+        }
+    </script>
+</body>
+
+</html>

@@ -7,8 +7,8 @@ var datastore = require('@google-cloud/datastore')({
     keyFilename: config.KEY_FILE
 });
 
-function save(entityName, entity) {
-    const dsKey = datastore.key(entityName);
+function saveNote(entity) {
+    const dsKey = datastore.key('Note');
 
     const dsEntity = {
         key: dsKey,
@@ -17,7 +17,7 @@ function save(entityName, entity) {
 
     return datastore.save(dsEntity)
         .then(() => {
-            return dsKey;
+            return dsEntity.key.id;
         });
 }
 
@@ -67,7 +67,7 @@ function findNotesHere(top, bottom, left, right) {
 
 
 module.exports = {
-    save,
+    saveNote,
     findNotesFromUser,
     findNoteById,
     findNotesHere

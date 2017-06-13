@@ -2,8 +2,6 @@
 
 const datastore = require('../datastore');
 const mapServices = require('./map_services');
-const bucketServices = require('./bucket_services');
-
 
 function createNote(req, res) {
     mapServices.getCity(req.body['lat'], req.body['lng'], (location) => {
@@ -33,19 +31,17 @@ function createNote(req, res) {
                 value: Date.now()
             },
             {
-                name: 'hasMedia',
-                value: req.body['picture'] ? true : false
+                name: 'picture',
+                value: req.body['picture'] ? req.body['picture'] : ''
             }
         ];
 
-        datastore.save('Note', note).then(function (key) {
-            if (req.body['picture']) {
-                req.body['picture_id'] = key.id;
-
-                bucketServices.sendUploadToGCS(req, res);
+        datastore.saveNote(note).then(function (key) {
+            if (key) {
+                res.json(200, key);
+            } else {
+                res.sendStatus(500);
             }
-
-            res.sendStatus(200);
         });
     });
 }

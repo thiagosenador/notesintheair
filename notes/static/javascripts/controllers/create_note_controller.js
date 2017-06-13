@@ -1,45 +1,8 @@
 (function () {
+    const fileBtn = document.getElementById("file");
+    const showPictureDiv = document.getElementById("showPictureDiv");
 
-    var imageRawData = null;
-
-    const noteTxt = document.getElementById('noteTxt');
-    const latTxt = document.getElementById('latTxt');
-    const lngTxt = document.getElementById('lngTxt');
-    const createNoteForm = document.getElementById('createNoteForm');
-
-    const takePicture = document.getElementById("takePictureBtn");
-    const showPicture = document.getElementById("showPictureDiv");
-
-    createNoteForm.addEventListener('submit', e => {
-        e.preventDefault();
-
-        var data = {};
-        data['note'] = noteTxt.value;
-        data['lat'] = latTxt.value;
-        data['lng'] = lngTxt.value;
-        data['user'] = firebase.auth().currentUser.uid;
-
-        if (imageRawData) {
-            data['picture'] = imageRawData;
-        }
-
-        var xhr = new XMLHttpRequest();
-
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                const toastMessage = document.getElementById('toast_message');
-
-                var data = { message: 'your note was posted successfully!!!' };
-                toastMessage.MaterialSnackbar.showSnackbar(data);
-            }
-        }
-
-        xhr.open(createNoteForm.method, createNoteForm.action, true);
-        xhr.setRequestHeader('Content-type', 'application/json');
-        xhr.send(JSON.stringify(data));
-    });
-
-    takePicture.addEventListener('change', e => {
+    fileBtn.addEventListener('change', e => {
         const MAX_WIDTH = 800;
         const MAX_HEIGHT = 600;
 
@@ -71,15 +34,44 @@
                     var canvas = document.createElement('canvas');
                     canvas.width = imageWidth;
                     canvas.height = imageHeight;
-                    
-                    var ctx = canvas.getContext('2d');
-                    ctx.drawImage(showPicture, 0, 0, imageWidth, imageHeight);
 
-                    imageRawData = canvas.toDataURL('image/jpeg', 1.0);
+                    var ctx = canvas.getContext('2d');
+                    ctx.drawImage(showPictureDiv, 0, 0, imageWidth, imageHeight);
                 }
-                image.src = showPicture.src = e.target.result;
+                image.src = showPictureDiv.src = e.target.result;
             };
             reader.readAsDataURL(file);
         }
+    });
+
+    var createNoteForm = document.createNoteForm;
+    createNoteForm.addEventListener('submit', e => {
+        e.preventDefault();
+
+        var fileUpload = createNoteForm.elements.file.files[0];
+        var noteContent = createNoteForm.elements.note.value;
+
+        if (!noteContent && !fileUpload) {
+            alert('Please put a note!');
+            return;
+        }
+
+        if (fileUpload) {
+            var formData = new FormData();
+            formData.append("key", "thiagos-${filename}");
+            formData.append("bucket", "notes_media");
+            formData.append("Content-Type", "image");
+            formData.append("GoogleAccessId", "upload-storage@notesintheair-160023.iam.gserviceaccount.com");
+            formData.append("acl", "bucket-owner-read");
+            formData.append("policy", "eyJleHBpcmF0aW9uIjogIjIwMjAtMDYtMTZUMTE6MTE6MTFaIiwKICJjb25kaXRpb25zIjogWwogIFsic3RhcnRzLXdpdGgiLCAiJGtleSIsICIiIF0sCiAgeyJhY2wiOiAiYnVja2V0LW93bmVyLXJlYWQiIH0sCiAgeyJidWNrZXQiOiAibm90ZXNfbWVkaWEifSwKICBbInN0YXJ0cy13aXRoIiwgIiRDb250ZW50LVR5cGUiLCAiaW1hZ2UiIF0sCiAgXQp9");
+            formData.append("signature", "ID+VfEZTwFfCYI/6qyyv3JXm3326lXc/UMMfNQwkzkWlfcMjbvDEEX+70yhJsJYNzuS4vBVLm8uj9jtaBopYo2oGjDkmKpL/BTpyHz+TqtGCiiwfhs/ce6yxSnj+ltB+HRaHaCGx5c4er5aON+rWohZ9KexmB0Vl4OCEbQ7FvKDT1qL72dq3nUt6vyuFZk00NVX1F9niK24N9mpgp6oKwRvk68XZ98SfiKzKb3xVtetYZQ8+nn0tPQ3b2YLsuvUB6s5HmjzZhKbMMqon+AGxb3OnTEG+gt/GsBoBAeH6QauKlLsrlaBmdxEbRfDl+BcGOGby2pFKxVBeEHoAkT/0+w==");
+            formData.append('file', fileUpload);
+
+            var rest = new XMLHttpRequest();
+            rest.open('POST', 'http://notes_media.storage.googleapis.com', true);
+            rest.send(formData);
+        }
+
+        createNoteForm.submit();
     });
 }());

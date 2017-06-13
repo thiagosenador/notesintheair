@@ -8,10 +8,10 @@
         var lat = position.coords.latitude;
         var lng = position.coords.longitude;
 
-        var lat_field = document.getElementById('latTxt');
+        var lat_field = document.getElementById('lat');
         lat_field.value = lat;
 
-        var lng_field = document.getElementById('lngTxt');
+        var lng_field = document.getElementById('lng');
         lng_field.value = lng;
     }
 }());
